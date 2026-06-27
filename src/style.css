@@ -274,9 +274,57 @@ body {
   display: block;
 }
 
-/* Landscape tablets: put controls beside the stage for more drawing room. */
-@media (orientation: landscape) and (min-width: 720px) {
+/* Landscape: move the controls into a side column so the picture can use the
+   full height of the screen instead of being squeezed between top/bottom bars.
+   Also slim down the chrome so the drawing always stays the star. */
+@media (orientation: landscape) {
+  .coloring {
+    display: grid;
+    grid-template-columns: 1fr clamp(168px, 24vw, 264px);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "topbar topbar"
+      "stage  controls";
+    gap: 6px;
+  }
+  .topbar {
+    grid-area: topbar;
+    padding: 6px 12px;
+  }
+  .stage {
+    grid-area: stage;
+    margin: 0 0 12px 12px;
+  }
+  .controls {
+    grid-area: controls;
+    overflow-y: auto;
+    align-content: start;
+    padding: 0 12px 12px 0;
+  }
+  /* compact chrome in landscape */
+  .coloring-title {
+    font-size: clamp(16px, 2.4vw, 22px);
+  }
+  .icon-btn {
+    width: 46px;
+    height: 46px;
+    font-size: 22px;
+  }
   .palette {
-    max-width: 70vw;
+    gap: 6px;
+  }
+  .swatch {
+    width: 38px;
+    height: 38px;
+  }
+  .tool-btn {
+    width: 52px;
+    height: 52px;
+    font-size: 25px;
+  }
+  .opt-btn {
+    min-width: 42px;
+    height: 42px;
+    font-size: 20px;
   }
 }

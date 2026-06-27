@@ -6,7 +6,7 @@ import { state, TOOLS } from '../state.js'
 import { sounds } from '../audio.js'
 import { STICKERS } from '../art/stickers.js'
 
-const BRUSH_SIZES = [8, 16, 28]
+const BRUSH_SIZES = [3, 6, 10, 16, 24]
 const STICKER_ICONS = { star: '⭐', heart: '❤️', flower: '🌸', dot: '🔵' }
 
 export function createToolbar({ onUndo, onClear }) {

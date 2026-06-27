@@ -6,7 +6,12 @@ import { sounds } from '../audio.js'
 
 export const COLORS = [
   '#ff5a5f', '#ff9f1c', '#ffd34e', '#a8e10c', '#6bcb77',
-  '#2ec4b6', '#4d96ff', '#5e60ce', '#9b5de5', '#ff70a6',
+  '#2ec4b6', '#4d96ff', '#5e60ce',
+  // purples (light -> deep)
+  '#d8b4fe', '#b388eb', '#9b5de5', '#7b2cbf',
+  // pinks (light -> hot)
+  '#ffd1e8', '#ffb3d1', '#ff70a6', '#ff4da6', '#e0218a',
+  // neutrals / skin / brown
   '#ffc6a8', '#a3622d', '#2b2b2b', '#ffffff',
 ]
 

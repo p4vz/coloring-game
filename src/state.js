@@ -11,7 +11,7 @@ export const TOOLS = {
 export const state = {
   tool: TOOLS.FILL,
   color: '#ff5a5f',
-  brushSize: 14,
+  brushSize: 10,
   sticker: 'star',
   muted: false,
 }
