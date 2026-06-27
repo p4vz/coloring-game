@@ -17,7 +17,7 @@ app (see below).
 - ↩️ **Undo** and 🧽 **Start over**
 - 💾 **Save** the finished picture as a PNG
 - 🔊 Gentle **sounds** with a mute toggle (remembered between visits)
-- 📚 **4 categories**: Animals, Vehicles, Houses, Dolls (~19 pictures)
+- 📚 **4 categories**: Animals, Vehicles, Houses, Dolls (~38 pictures)
 - 🚫 **No ads, no tracking, no accounts, no external links**
 
 ## Run it
@@ -60,12 +60,20 @@ src/
   art/               SVG pictures by category + stickers + registry
 ```
 
+### Where the art comes from
+
+Animals, vehicles, and dolls are derived from **Twemoji** (CC‑BY 4.0): each
+emoji's flat-color SVG is converted into a coloring page — every colored shape
+becomes a white tappable `region`, with a black outline copy on top. Houses and
+the stickers are original CC0 line art. See
+[`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md) for credits and the (one-line) Twemoji
+attribution the shipped app should keep.
+
 ### Adding more pictures
 
 Drop a new `.svg` into `src/art/animals|vehicles|houses|dolls/` following the
-`region` / `outline` structure in `src/art/animals/cat.svg`. It is picked up
-automatically (via `import.meta.glob`) — no list to edit. See
-[`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md) for licensing when sourcing art.
+`region` / `outline` structure in any existing file. It is picked up
+automatically (via `import.meta.glob`) — no list to edit.
 
 ## Phase 2 — native app (planned)
 

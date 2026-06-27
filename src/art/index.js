@@ -15,16 +15,12 @@ export const CATEGORIES = [
   { id: 'dolls', label: 'Dolls', icon: '🧸' },
 ]
 
-// Friendly display names keyed by file stem.
-const NAMES = {
-  cat: 'Cat', dog: 'Dog', fish: 'Fish', bird: 'Bird', rabbit: 'Rabbit',
-  turtle: 'Turtle', train: 'Train', car: 'Car', bus: 'Bus', truck: 'Truck',
-  airplane: 'Airplane', house: 'House', cottage: 'Cottage', castle: 'Castle',
-  barn: 'Barn', doll: 'Doll', teddy: 'Teddy', boy: 'Boy', girl: 'Girl',
-}
-
+// Turn a file stem into a friendly display name: "fire-engine" -> "Fire Engine".
 function titleCase(s) {
-  return s.charAt(0).toUpperCase() + s.slice(1)
+  return s
+    .split(/[-_]/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ')
 }
 
 // Build { categoryId: [ {id, name, category, svg}, ... ] }
@@ -38,7 +34,7 @@ for (const path in modules) {
   if (!TEMPLATES[category]) continue
   TEMPLATES[category].push({
     id: `${category}/${stem}`,
-    name: NAMES[stem] || titleCase(stem),
+    name: titleCase(stem),
     category,
     svg: modules[path],
   })

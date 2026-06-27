@@ -1,34 +1,45 @@
 # Art Attributions & Licensing
 
-All coloring pictures and sticker shapes in this prototype are **original line
-art created for this project** and dedicated to the public domain under
-[CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). They are simple
-geometric SVGs hand-authored to follow the app's `region` / `outline`
-convention (separate closed fill-regions plus a black outline layer), which is
-what makes crisp tap-to-fill work reliably.
+This project's coloring pictures come from two sources, both free to use and
+ship (no ads, tracking, or restrictive licenses):
 
-Using only CC0 / original assets keeps the project free of ads, tracking, and
-licensing restrictions, so it is safe to ship in the Phase 2 native app.
+## Animals, Vehicles, Dolls — Twemoji
 
-## Adding more pictures from public sources
+These pictures are derived from **Twemoji** (Twitter Emoji), licensed under
+**CC‑BY 4.0**.
 
-When expanding the library, you may use line art from public-domain / CC0
-collections such as:
+- Source: https://github.com/twitter/twemoji (npm package `@twemoji/svg`)
+- Copyright: © Twitter, Inc. and other contributors
+- License: [CC‑BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
-- [OpenClipart](https://openclipart.org/) — public domain
-- [SVG Repo](https://www.svgrepo.com/) — filter to the CC0 / Public Domain sets
-- [Wikimedia Commons](https://commons.wikimedia.org/) — public-domain SVGs
+Each emoji's flat-color SVG was converted into a coloring page: every colored
+shape becomes a white, tappable `region`, and a black outline copy of every
+shape forms the `outlines` layer. The conversion script lives in the repo
+history; re-running it regenerates the files under
+`src/art/{animals,vehicles,dolls}/`.
 
-For each imported file:
+**Attribution requirement:** because Twemoji is CC‑BY, keep this credit in the
+shipped app/about screen: *"Emoji artwork from Twemoji, © Twitter, licensed
+under CC‑BY 4.0."*
 
-1. Confirm the license is CC0 or public domain.
-2. Adapt it to the `region`/`outline` structure (see `src/art/animals/cat.svg`
-   as the reference): closed shapes in `<g class="regions">` each with
-   `class="region"` and `fill="#ffffff"`, and the black line work in
-   `<g class="outlines">`.
-3. Add a row to the table below crediting the source.
+## Houses — Original
 
-| File | Source | Author | License |
-|------|--------|--------|---------|
-| `src/art/**/*.svg` (all current pictures) | Original (this repo) | Project | CC0 1.0 |
-| `src/art/stickers.js` (star/heart/flower/dot) | Original (this repo) | Project | CC0 1.0 |
+The `src/art/houses/*.svg` pictures and the sticker shapes in
+`src/art/stickers.js` are **original line art created for this project**,
+dedicated to the public domain under
+[CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+
+## Adding more pictures
+
+- **From Twemoji:** add the emoji's hex codepoint + a friendly name to the
+  conversion script's `SETS` and re-run it. The picker auto-registers any new
+  `.svg` via `import.meta.glob` (see `src/art/index.js`).
+- **From other sources:** only use CC0 / public-domain or CC‑BY art
+  (e.g. OpenClipart, freesvg.org, SVG Repo's CC0 set, Wikimedia PD). Adapt each
+  to the `region` / `outline` structure (see any file in `src/art/houses/` for
+  the hand-authored reference) and add a credit row below.
+
+| Pictures | Source | License |
+|----------|--------|---------|
+| `src/art/animals/*`, `src/art/vehicles/*`, `src/art/dolls/*` | Twemoji (© Twitter) | CC‑BY 4.0 |
+| `src/art/houses/*`, `src/art/stickers.js` | Original (this repo) | CC0 1.0 |
