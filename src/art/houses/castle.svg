@@ -1,0 +1,23 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <g class="regions">
+    <rect class="region" fill="#ffffff" x="70" y="150" width="60" height="190"/>
+    <rect class="region" fill="#ffffff" x="270" y="150" width="60" height="190"/>
+    <rect class="region" fill="#ffffff" x="130" y="200" width="140" height="140"/>
+    <polygon class="region" fill="#ffffff" points="70,150 100,100 130,150"/>
+    <polygon class="region" fill="#ffffff" points="270,150 300,100 330,150"/>
+    <path class="region" fill="#ffffff" d="M170 340 v-70 a30 30 0 0 1 60 0 v70 z"/>
+    <rect class="region" fill="#ffffff" x="85" y="185" width="30" height="35"/>
+    <rect class="region" fill="#ffffff" x="285" y="185" width="30" height="35"/>
+  </g>
+  <g class="outlines" fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="70" y="150" width="60" height="190"/>
+    <rect x="270" y="150" width="60" height="190"/>
+    <rect x="130" y="200" width="140" height="140"/>
+    <polygon points="70,150 100,100 130,150"/>
+    <polygon points="270,150 300,100 330,150"/>
+    <path d="M170 340 v-70 a30 30 0 0 1 60 0 v70"/>
+    <rect x="85" y="185" width="30" height="35"/>
+    <rect x="285" y="185" width="30" height="35"/>
+    <path d="M150 235 h100"/>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+{
+  "name": "coloring-game",
+  "version": "0.1.0",
+  "description": "Ad-free coloring game for young kids. Tap to fill, brush to draw, add stickers. Lightweight SVG, runs on weak tablets.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

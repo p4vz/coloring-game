@@ -1,0 +1,19 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <g class="regions">
+    <rect class="region" fill="#ffffff" x="40" y="150" width="190" height="110" rx="8"/>
+    <path class="region" fill="#ffffff" d="M230 200 h70 l40 40 v20 h-110 z"/>
+    <rect class="region" fill="#ffffff" x="245" y="210" width="45" height="35" rx="4"/>
+    <circle class="region" fill="#ffffff" cx="100" cy="275" r="34"/>
+    <circle class="region" fill="#ffffff" cx="290" cy="275" r="34"/>
+  </g>
+  <g class="outlines" fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="40" y="150" width="190" height="110" rx="8"/>
+    <path d="M230 150 v110 h110 v-20 l-40 -40 h-70 z"/>
+    <rect x="245" y="210" width="45" height="35" rx="4"/>
+    <circle cx="100" cy="275" r="34"/>
+    <circle cx="290" cy="275" r="34"/>
+    <circle cx="100" cy="275" r="9" fill="#2b2b2b"/>
+    <circle cx="290" cy="275" r="9" fill="#2b2b2b"/>
+    <path d="M40 260 h300"/>
+  </g>
+</svg>

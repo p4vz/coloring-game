@@ -1,0 +1,17 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <g class="regions">
+    <path class="region" fill="#ffffff" d="M60 200 q20 -34 110 -34 h90 q60 0 80 34 q-20 34 -80 34 h-90 q-90 0 -110 -34 z"/>
+    <polygon class="region" fill="#ffffff" points="150,185 250,185 210,110 175,110"/>
+    <polygon class="region" fill="#ffffff" points="60,200 30,150 55,150 95,185"/>
+    <polygon class="region" fill="#ffffff" points="60,200 30,250 55,250 95,215"/>
+    <circle class="region" fill="#ffffff" cx="300" cy="200" r="20"/>
+  </g>
+  <g class="outlines" fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60 200 q20 -34 110 -34 h90 q60 0 80 34 q-20 34 -80 34 h-90 q-90 0 -110 -34 z"/>
+    <polygon points="150,185 250,185 210,110 175,110"/>
+    <polygon points="60,200 30,150 55,150 95,185"/>
+    <polygon points="60,200 30,250 55,250 95,215"/>
+    <circle cx="300" cy="200" r="20"/>
+    <path d="M150 215 h120"/>
+  </g>
+</svg>

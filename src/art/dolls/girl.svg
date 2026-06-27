@@ -1,0 +1,25 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <g class="regions">
+    <circle class="region" fill="#ffffff" cx="200" cy="105" r="56"/>
+    <path class="region" fill="#ffffff" d="M144 110 q-6 -78 56 -78 q62 0 56 78 q-14 -40 -56 -40 q-42 0 -56 40 z"/>
+    <ellipse class="region" fill="#ffffff" cx="138" cy="150" rx="20" ry="38"/>
+    <ellipse class="region" fill="#ffffff" cx="262" cy="150" rx="20" ry="38"/>
+    <path class="region" fill="#ffffff" d="M200 165 l60 30 -30 145 h-60 l-30 -145 z"/>
+    <rect class="region" fill="#ffffff" x="172" y="340" width="24" height="18" rx="4"/>
+    <rect class="region" fill="#ffffff" x="204" y="340" width="24" height="18" rx="4"/>
+    <circle class="region" fill="#ffffff" cx="182" cy="105" r="8"/>
+    <circle class="region" fill="#ffffff" cx="218" cy="105" r="8"/>
+  </g>
+  <g class="outlines" fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="200" cy="105" r="56"/>
+    <path d="M144 110 q-6 -78 56 -78 q62 0 56 78"/>
+    <ellipse cx="138" cy="150" rx="20" ry="38"/>
+    <ellipse cx="262" cy="150" rx="20" ry="38"/>
+    <path d="M200 165 l60 30 -30 145 h-60 l-30 -145 z"/>
+    <rect x="172" y="340" width="24" height="18" rx="4"/>
+    <rect x="204" y="340" width="24" height="18" rx="4"/>
+    <circle cx="182" cy="105" r="8"/>
+    <circle cx="218" cy="105" r="8"/>
+    <path d="M180 130 q20 16 40 0"/>
+  </g>
+</svg>

@@ -1,0 +1,282 @@
+/* Color Fun! — kid-friendly, high-contrast, big touch targets.
+   Landscape-first for tablets, but reflows for portrait. No heavy effects so it
+   stays smooth on weak hardware. */
+
+:root {
+  --bg: #fff7e6;
+  --panel: #ffffff;
+  --ink: #2b2b2b;
+  --accent: #ff9f1c;
+  --accent2: #4d96ff;
+  --shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+  --radius: 18px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+#app {
+  height: 100%;
+}
+
+.screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Picker ---------- */
+.picker {
+  padding: 16px clamp(12px, 3vw, 40px);
+  gap: 12px;
+  overflow: hidden;
+}
+
+.picker-title {
+  margin: 4px 0;
+  text-align: center;
+  font-size: clamp(24px, 4vw, 40px);
+  color: var(--accent);
+  text-shadow: 0 2px 0 #fff;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: var(--panel);
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: clamp(15px, 2.4vw, 20px);
+  font-weight: 700;
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.tab .tab-icon {
+  font-size: 1.4em;
+}
+.tab.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.thumb-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  overflow-y: auto;
+  padding: 8px 4px 24px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 10px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.thumb:active {
+  transform: translateY(2px);
+}
+.thumb-art {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+}
+.thumb-art svg {
+  width: 100%;
+  height: 100%;
+}
+.thumb-name {
+  font-weight: 700;
+  font-size: clamp(13px, 2vw, 17px);
+}
+
+/* ---------- Coloring screen ---------- */
+.coloring {
+  background: linear-gradient(180deg, #fff7e6, #ffe9c7);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+}
+.coloring-title {
+  flex: 1;
+  text-align: center;
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 800;
+  color: var(--accent);
+}
+.top-right {
+  display: flex;
+  gap: 10px;
+}
+
+.icon-btn {
+  border: none;
+  background: var(--panel);
+  border-radius: 16px;
+  width: 56px;
+  height: 56px;
+  font-size: 26px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.icon-btn:active {
+  transform: translateY(2px);
+}
+.icon-btn:disabled {
+  opacity: 0.5;
+}
+
+.stage {
+  flex: 1;
+  margin: 0 14px;
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 0;
+}
+.board-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none; /* let us handle drawing without the browser panning */
+}
+.board-svg .region {
+  cursor: pointer;
+}
+
+/* ---------- Bottom controls ---------- */
+.controls {
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.swatch {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background: var(--c);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.swatch.selected {
+  outline: 4px solid var(--accent2);
+  outline-offset: 2px;
+  transform: scale(1.12);
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.tool-options {
+  display: flex;
+  gap: 10px;
+  min-height: 4px;
+}
+.tool-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tool-btn {
+  border: none;
+  background: var(--panel);
+  border-radius: 16px;
+  width: 60px;
+  height: 60px;
+  font-size: 28px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.tool-btn:active {
+  transform: translateY(2px);
+}
+.tool-btn.active {
+  background: var(--accent);
+  outline: 3px solid var(--accent2);
+}
+.tool-btn:disabled {
+  opacity: 0.45;
+}
+
+.opt-btn {
+  border: none;
+  background: var(--panel);
+  border-radius: 14px;
+  min-width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.opt-btn.selected {
+  outline: 3px solid var(--accent2);
+}
+.size-dot {
+  background: var(--ink);
+  border-radius: 50%;
+  display: block;
+}
+
+/* Landscape tablets: put controls beside the stage for more drawing room. */
+@media (orientation: landscape) and (min-width: 720px) {
+  .palette {
+    max-width: 70vw;
+  }
+}

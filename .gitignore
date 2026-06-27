@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.local
+.DS_Store
+
+# Phase 2 (Capacitor) native projects
+/android
+/ios
+.capacitor/

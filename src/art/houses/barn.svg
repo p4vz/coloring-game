@@ -1,0 +1,19 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <g class="regions">
+    <path class="region" fill="#ffffff" d="M80 200 v140 h240 v-140 l-40 -50 h-160 z"/>
+    <path class="region" fill="#ffffff" d="M120 150 h160 l40 50 h-240 z"/>
+    <path class="region" fill="#ffffff" d="M170 340 v-70 h60 v70 z"/>
+    <rect class="region" fill="#ffffff" x="110" y="215" width="44" height="44"/>
+    <rect class="region" fill="#ffffff" x="246" y="215" width="44" height="44"/>
+  </g>
+  <g class="outlines" fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M80 200 v140 h240 v-140 l-40 -50 h-160 z"/>
+    <path d="M120 150 h160 l40 50 M80 200 l40 -50"/>
+    <path d="M170 340 v-70 h60 v70"/>
+    <path d="M200 270 v70"/>
+    <rect x="110" y="215" width="44" height="44"/>
+    <path d="M132 215 v44 M110 237 h44"/>
+    <rect x="246" y="215" width="44" height="44"/>
+    <path d="M268 215 v44 M246 237 h44"/>
+  </g>
+</svg>

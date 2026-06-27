@@ -1,0 +1,23 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <g class="regions">
+    <rect class="region" fill="#ffffff" x="50" y="120" width="300" height="160" rx="24"/>
+    <rect class="region" fill="#ffffff" x="75" y="150" width="50" height="50" rx="6"/>
+    <rect class="region" fill="#ffffff" x="140" y="150" width="50" height="50" rx="6"/>
+    <rect class="region" fill="#ffffff" x="205" y="150" width="50" height="50" rx="6"/>
+    <rect class="region" fill="#ffffff" x="280" y="150" width="45" height="90" rx="6"/>
+    <circle class="region" fill="#ffffff" cx="120" cy="290" r="32"/>
+    <circle class="region" fill="#ffffff" cx="285" cy="290" r="32"/>
+  </g>
+  <g class="outlines" fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="50" y="120" width="300" height="160" rx="24"/>
+    <rect x="75" y="150" width="50" height="50" rx="6"/>
+    <rect x="140" y="150" width="50" height="50" rx="6"/>
+    <rect x="205" y="150" width="50" height="50" rx="6"/>
+    <rect x="280" y="150" width="45" height="90" rx="6"/>
+    <circle cx="120" cy="290" r="32"/>
+    <circle cx="285" cy="290" r="32"/>
+    <circle cx="120" cy="290" r="9" fill="#2b2b2b"/>
+    <circle cx="285" cy="290" r="9" fill="#2b2b2b"/>
+    <path d="M50 230 h300"/>
+  </g>
+</svg>

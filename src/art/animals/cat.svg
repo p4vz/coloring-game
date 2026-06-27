@@ -1,0 +1,27 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <g class="regions">
+    <polygon class="region" fill="#ffffff" points="120,150 150,45 205,130"/>
+    <polygon class="region" fill="#ffffff" points="280,150 250,45 195,130"/>
+    <polygon class="region" fill="#ffffff" points="138,120 156,70 182,122"/>
+    <polygon class="region" fill="#ffffff" points="262,120 244,70 218,122"/>
+    <circle class="region" fill="#ffffff" cx="200" cy="220" r="120"/>
+    <circle class="region" fill="#ffffff" cx="160" cy="205" r="20"/>
+    <circle class="region" fill="#ffffff" cx="240" cy="205" r="20"/>
+    <polygon class="region" fill="#ffffff" points="200,235 184,250 216,250"/>
+  </g>
+  <g class="outlines" fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="120,150 150,45 205,130"/>
+    <polygon points="280,150 250,45 195,130"/>
+    <polyline points="138,120 156,70 182,122"/>
+    <polyline points="262,120 244,70 218,122"/>
+    <circle cx="200" cy="220" r="120"/>
+    <circle cx="160" cy="205" r="20"/>
+    <circle cx="240" cy="205" r="20"/>
+    <polygon points="200,235 184,250 216,250"/>
+    <path d="M200 250 V272"/>
+    <path d="M200 272 q-22 18 -44 6"/>
+    <path d="M200 272 q22 18 44 6"/>
+    <path d="M70 235 h66 M74 262 h62"/>
+    <path d="M330 235 h-66 M326 262 h-62"/>
+  </g>
+</svg>

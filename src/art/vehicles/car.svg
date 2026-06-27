@@ -1,0 +1,18 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <g class="regions">
+    <path class="region" fill="#ffffff" d="M50 250 h300 v-40 q0 -20 -30 -20 l-40 -50 q-8 -10 -24 -10 h-110 q-16 0 -24 10 l-30 50 h-18 q-20 0 -20 20 z"/>
+    <path class="region" fill="#ffffff" d="M110 180 l22 -40 q4 -8 16 -8 h44 v48 z"/>
+    <path class="region" fill="#ffffff" d="M204 132 h44 q12 0 16 8 l22 40 h-82 z"/>
+    <circle class="region" fill="#ffffff" cx="120" cy="255" r="36"/>
+    <circle class="region" fill="#ffffff" cx="285" cy="255" r="36"/>
+  </g>
+  <g class="outlines" fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M50 250 h300 v-40 q0 -20 -30 -20 l-40 -50 q-8 -10 -24 -10 h-110 q-16 0 -24 10 l-30 50 h-18 q-20 0 -20 20 z"/>
+    <path d="M204 132 v58"/>
+    <path d="M110 180 l22 -40 q4 -8 16 -8 M204 132 h44 q12 0 16 8 l22 40"/>
+    <circle cx="120" cy="255" r="36"/>
+    <circle cx="285" cy="255" r="36"/>
+    <circle cx="120" cy="255" r="10" fill="#2b2b2b"/>
+    <circle cx="285" cy="255" r="10" fill="#2b2b2b"/>
+  </g>
+</svg>

@@ -1,0 +1,28 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <g class="regions">
+    <circle class="region" fill="#ffffff" cx="140" cy="110" r="34"/>
+    <circle class="region" fill="#ffffff" cx="260" cy="110" r="34"/>
+    <circle class="region" fill="#ffffff" cx="200" cy="150" r="70"/>
+    <ellipse class="region" fill="#ffffff" cx="200" cy="160" rx="34" ry="28"/>
+    <ellipse class="region" fill="#ffffff" cx="200" cy="265" rx="80" ry="75"/>
+    <circle class="region" fill="#ffffff" cx="110" cy="245" r="32"/>
+    <circle class="region" fill="#ffffff" cx="290" cy="245" r="32"/>
+    <circle class="region" fill="#ffffff" cx="150" cy="330" r="34"/>
+    <circle class="region" fill="#ffffff" cx="250" cy="330" r="34"/>
+  </g>
+  <g class="outlines" fill="none" stroke="#2b2b2b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="140" cy="110" r="34"/>
+    <circle cx="260" cy="110" r="34"/>
+    <circle cx="200" cy="150" r="70"/>
+    <ellipse cx="200" cy="160" rx="34" ry="28"/>
+    <ellipse cx="200" cy="265" rx="80" ry="75"/>
+    <circle cx="110" cy="245" r="32"/>
+    <circle cx="290" cy="245" r="32"/>
+    <circle cx="150" cy="330" r="34"/>
+    <circle cx="250" cy="330" r="34"/>
+    <circle cx="180" cy="138" r="6" fill="#2b2b2b"/>
+    <circle cx="220" cy="138" r="6" fill="#2b2b2b"/>
+    <circle cx="200" cy="152" r="8" fill="#2b2b2b"/>
+    <path d="M200 160 v10 M200 170 q-12 8 -22 0 M200 170 q12 8 22 0"/>
+  </g>
+</svg>
