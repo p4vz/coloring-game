@@ -62,12 +62,12 @@ src/
 
 ### Where the art comes from
 
-Animals, vehicles, and dolls are derived from **Twemoji** (CC‑BY 4.0): each
-emoji's flat-color SVG is converted into a coloring page — every colored shape
-becomes a white tappable `region`, with a black outline copy on top. Houses and
-the stickers are original CC0 line art. See
-[`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md) for credits and the (one-line) Twemoji
-attribution the shipped app should keep.
+Animals are **vectorized from a kawaii woodland reference sheet** (potrace
+outlines + connected-component segmentation for the fill regions). Vehicles and
+dolls are derived from **Twemoji** (CC‑BY 4.0). Houses and stickers are original
+CC0 line art. See [`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md) for credits, the
+Twemoji attribution to keep in the shipped app, and an **important note about
+confirming rights to the animal artwork before publishing.**
 
 ### Adding more pictures
 

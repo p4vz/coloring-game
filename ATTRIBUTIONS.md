@@ -1,9 +1,26 @@
 # Art Attributions & Licensing
 
-This project's coloring pictures come from two sources, both free to use and
-ship (no ads, tracking, or restrictive licenses):
+This project's coloring pictures come from a few sources. Note the
+**licensing review needed** item for the animals before shipping.
 
-## Animals, Vehicles, Dolls — Twemoji
+## Animals — traced from a reference sheet ⚠️ review rights
+
+The `src/art/animals/*.svg` woodland animals (rabbit, hedgehog, fox, bear,
+raccoon, skunk, deer, beaver, lynx, owl, frog, mouse) were **vectorized
+(auto-traced) from a kawaii animal reference image supplied by the project
+owner**. Tracing produces a derivative of that artwork.
+
+The original reference appears to be a third-party illustration set of unknown
+license. **Before publishing the app, confirm you have the right to use/trace
+these images** (your own artwork, a purchased license that permits it, or a
+CC0/CC‑BY source). If you cannot confirm rights, replace them — e.g. with CC0
+woodland animals (OpenClipart, freesvg.org) run through the same trace pipeline.
+
+Pipeline: crop each animal → potrace for smooth outlines → connected-component
+segmentation of the white areas for tap-to-fill regions (script kept in repo
+history).
+
+## Vehicles, Dolls — Twemoji
 
 These pictures are derived from **Twemoji** (Twitter Emoji), licensed under
 **CC‑BY 4.0**.
@@ -11,12 +28,6 @@ These pictures are derived from **Twemoji** (Twitter Emoji), licensed under
 - Source: https://github.com/twitter/twemoji (npm package `@twemoji/svg`)
 - Copyright: © Twitter, Inc. and other contributors
 - License: [CC‑BY 4.0](https://creativecommons.org/licenses/by/4.0/)
-
-Each emoji's flat-color SVG was converted into a coloring page: every colored
-shape becomes a white, tappable `region`, and a black outline copy of every
-shape forms the `outlines` layer. The conversion script lives in the repo
-history; re-running it regenerates the files under
-`src/art/{animals,vehicles,dolls}/`.
 
 **Attribution requirement:** because Twemoji is CC‑BY, keep this credit in the
 shipped app/about screen: *"Emoji artwork from Twemoji, © Twitter, licensed
@@ -41,5 +52,6 @@ dedicated to the public domain under
 
 | Pictures | Source | License |
 |----------|--------|---------|
-| `src/art/animals/*`, `src/art/vehicles/*`, `src/art/dolls/*` | Twemoji (© Twitter) | CC‑BY 4.0 |
+| `src/art/animals/*` | Traced from owner-supplied reference | ⚠️ confirm rights |
+| `src/art/vehicles/*`, `src/art/dolls/*` | Twemoji (© Twitter) | CC‑BY 4.0 |
 | `src/art/houses/*`, `src/art/stickers.js` | Original (this repo) | CC0 1.0 |
