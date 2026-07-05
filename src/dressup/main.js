@@ -1,13 +1,13 @@
-// Dress Up! — pick clothes for the doll, then recolor any part by choosing a
-// palette color and tapping it. Reuses the coloring game's palette, sounds,
-// and PNG exporter so both games feel like one family.
+// Dress Up! — pick a doll (girl or boy), dress them from a slot-based
+// wardrobe, then recolor any part by choosing a palette color and tapping it.
+// Reuses the coloring game's palette, sounds, and PNG exporter.
 
 import './style.css'
 import { state, loadPrefs, setMuted } from '../state.js'
 import { unlockAudio, sounds } from '../audio.js'
 import { exportPng } from '../engine/exporter.js'
 import { createPalette } from '../ui/palette.js'
-import { dollSvg, WARDROBE, DEFAULTS, SLOTS } from './wardrobe.js'
+import { dollSvg, WARDROBES, DEFAULTS_BY_DOLL, SLOTS_BY_DOLL, DOLLS } from './wardrobe.js'
 
 const app = document.getElementById('app')
 loadPrefs()
@@ -43,6 +43,11 @@ muteBtn.addEventListener('click', () => {
   sounds.pick()
 })
 
+const surpriseBtn = document.createElement('button')
+surpriseBtn.className = 'du-icon-btn'
+surpriseBtn.innerHTML = '🎲'
+surpriseBtn.title = 'Surprise outfit!'
+
 const resetBtn = document.createElement('button')
 resetBtn.className = 'du-icon-btn'
 resetBtn.innerHTML = '🧽'
@@ -53,17 +58,15 @@ saveBtn.className = 'du-icon-btn'
 saveBtn.innerHTML = '💾'
 saveBtn.title = 'Save picture'
 
-right.append(muteBtn, resetBtn, saveBtn)
+right.append(muteBtn, surpriseBtn, resetBtn, saveBtn)
 topbar.append(hubBtn, titleEl, right)
 
 // ---------- stage (the doll) ----------
 const stage = document.createElement('div')
 stage.className = 'du-stage'
-stage.innerHTML = dollSvg()
-const doll = stage.querySelector('svg')
 
-// tap any region (clothes, hair, skin, cheeks) to recolor it
-doll.addEventListener('pointerdown', (e) => {
+// one delegated handler survives doll rebuilds: tap any region to recolor it
+stage.addEventListener('pointerdown', (e) => {
   const region = e.target.closest && e.target.closest('.region')
   if (!region) return
   if (region.getAttribute('fill') === state.color) return
@@ -75,27 +78,32 @@ doll.addEventListener('pointerdown', (e) => {
 const panel = document.createElement('div')
 panel.className = 'du-panel'
 
+const dollRow = document.createElement('div')
+dollRow.className = 'du-doll-row'
+
 const slotTabs = document.createElement('div')
 slotTabs.className = 'du-slot-tabs'
 
 const itemGrid = document.createElement('div')
 itemGrid.className = 'du-items'
 
-const worn = { ...DEFAULTS }
+let currentDoll = 'girl'
+let worn = { ...DEFAULTS_BY_DOLL[currentDoll] }
 let activeSlot = 'dress'
 
+const wardrobe = () => WARDROBES[currentDoll]
+
 function equip(slot, itemId) {
-  const item = WARDROBE[slot].find((i) => i.id === itemId)
-  const anchor = doll.querySelector(`[data-slot="${slot}"]`)
+  const item = wardrobe()[slot]?.find((i) => i.id === itemId)
+  const anchor = stage.querySelector(`[data-slot="${slot}"]`)
   if (!item || !anchor) return
   anchor.innerHTML = item.svg
   worn[slot] = itemId
-  renderItems()
 }
 
 function renderItems() {
   itemGrid.innerHTML = ''
-  for (const item of WARDROBE[activeSlot]) {
+  for (const item of wardrobe()[activeSlot] || []) {
     const card = document.createElement('button')
     card.className = 'du-item'
     if (worn[activeSlot] === item.id) card.classList.add('worn')
@@ -106,27 +114,55 @@ function renderItems() {
     card.addEventListener('click', () => {
       sounds.stamp()
       equip(activeSlot, item.id)
+      renderItems()
     })
     itemGrid.appendChild(card)
   }
 }
 
-const tabButtons = SLOTS.map((slot) => {
+function renderSlotTabs() {
+  slotTabs.innerHTML = ''
+  for (const slot of SLOTS_BY_DOLL[currentDoll]) {
+    const b = document.createElement('button')
+    b.className = 'du-slot-tab'
+    b.innerHTML = `<span>${slot.icon}</span><span class="du-slot-label">${slot.label}</span>`
+    if (slot.id === activeSlot) b.classList.add('active')
+    b.addEventListener('click', () => {
+      activeSlot = slot.id
+      sounds.pick()
+      renderSlotTabs()
+      renderItems()
+    })
+    slotTabs.appendChild(b)
+  }
+}
+
+function buildDoll() {
+  stage.innerHTML = dollSvg(currentDoll)
+  worn = { ...DEFAULTS_BY_DOLL[currentDoll] }
+  for (const slot of Object.keys(worn)) equip(slot, worn[slot])
+  if (!wardrobe()[activeSlot]) activeSlot = 'dress'
+  renderSlotTabs()
+  renderItems()
+}
+
+const dollButtons = DOLLS.map((d) => {
   const b = document.createElement('button')
-  b.className = 'du-slot-tab'
-  b.innerHTML = `<span>${slot.icon}</span><span class="du-slot-label">${slot.label}</span>`
-  if (slot.id === activeSlot) b.classList.add('active')
+  b.className = 'du-doll-btn'
+  b.innerHTML = `${d.icon} ${d.label}`
+  if (d.id === currentDoll) b.classList.add('active')
   b.addEventListener('click', () => {
-    activeSlot = slot.id
-    tabButtons.forEach((t) => t.classList.toggle('active', t === b))
+    if (currentDoll === d.id) return
+    currentDoll = d.id
+    dollButtons.forEach((x) => x.classList.toggle('active', x === b))
     sounds.pick()
-    renderItems()
+    buildDoll()
   })
-  slotTabs.appendChild(b)
+  dollRow.appendChild(b)
   return b
 })
 
-panel.append(slotTabs, itemGrid)
+panel.append(dollRow, slotTabs, itemGrid)
 
 // ---------- palette ----------
 const paletteWrap = document.createElement('div')
@@ -134,16 +170,25 @@ paletteWrap.className = 'du-palette'
 paletteWrap.appendChild(createPalette().el)
 
 // ---------- actions ----------
+surpriseBtn.addEventListener('click', () => {
+  sounds.stamp()
+  for (const slot of Object.keys(wardrobe())) {
+    const items = wardrobe()[slot]
+    equip(slot, items[Math.floor(Math.random() * items.length)].id)
+  }
+  renderItems()
+})
+
 resetBtn.addEventListener('click', () => {
   sounds.undo()
-  window.location.reload() // fresh doll, default outfit — simplest "start over"
+  buildDoll()
 })
 
 saveBtn.addEventListener('click', async () => {
   sounds.pick()
   saveBtn.disabled = true
   try {
-    await exportPng(doll, 'my-doll.png')
+    await exportPng(stage.querySelector('svg'), 'my-doll.png')
   } catch (err) {
     console.error(err)
   } finally {
@@ -153,7 +198,4 @@ saveBtn.addEventListener('click', async () => {
 
 screen.append(topbar, stage, panel, paletteWrap)
 app.replaceChildren(screen)
-
-// wear the defaults
-for (const slot of Object.keys(DEFAULTS)) equip(slot, DEFAULTS[slot])
-renderItems()
+buildDoll()

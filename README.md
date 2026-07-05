@@ -1,4 +1,4 @@
-# Danya's Games 🎈
+# Elana's Games 🎈
 
 An **ad-free mini-games site for young kids** (aimed at ~4-year-olds). The
 landing page is a hub of games; each game lives on its own page:
@@ -70,11 +70,14 @@ src/
 
 ### Dress Up
 
-The doll and every wardrobe item are original parametric SVGs (same kawaii
-style as the coloring pages). Items are grouped by slot — Hair, Dress, Shoes,
-Hats — and every shape is a tappable `region`, so a kid can equip an outfit
-and then recolor each part (bodice, skirt, sparkles, even skin and cheeks)
-with the shared palette. Sparkle stars are individual regions too.
+Two dolls (girl 👧 and boy 👦) and every wardrobe item are original parametric
+SVGs (same kawaii style as the coloring pages). Girl slots: Dress, Hair, Shoes,
+Hats (incl. three tiaras + crown), Necklaces, Earrings, Glasses, Gloves, Pet,
+and Scene (backgrounds). Boy slots swap Dress for Clothes (tee, suit, overalls,
+hoodie, superhero, raincoat) and add Facial Hair (mustaches, goatee, beard).
+Every shape is a tappable `region`, so a kid can equip an outfit and recolor
+each part (bodice, skirt, sparkles, beads, pet fur, even skin and cheeks) with
+the shared palette. A 🎲 button deals a random surprise outfit.
 
 ### Where the art comes from
 

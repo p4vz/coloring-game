@@ -108,12 +108,38 @@ body {
   flex-direction: column;
   gap: 6px;
   padding: 0 14px;
+  min-width: 0; /* let inner rows scroll instead of overflowing off-screen */
+}
+.du-doll-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.du-doll-btn {
+  border: none;
+  background: var(--panel);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 16px;
+  font-weight: 800;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.du-doll-btn.active {
+  background: var(--accent2);
+  color: #fff;
 }
 .du-slot-tabs {
   display: flex;
   gap: 8px;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;        /* single scrollable row — no falling off-screen */
+  overflow-x: auto;
+  min-width: 0;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.du-slot-tab {
+  flex: 0 0 auto;
 }
 .du-slot-tab {
   display: flex;
@@ -136,6 +162,7 @@ body {
   display: flex;
   gap: 10px;
   overflow-x: auto;
+  min-width: 0; /* required inside grid/flex so the row scrolls, not overflows */
   padding: 4px 2px 8px;
   -webkit-overflow-scrolling: touch;
 }
