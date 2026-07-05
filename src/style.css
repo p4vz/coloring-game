@@ -55,6 +55,25 @@ body {
   text-shadow: 0 2px 0 #fff;
 }
 
+.hub-btn {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--panel);
+  border-radius: 16px;
+  font-size: 26px;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+}
+.picker {
+  position: relative;
+}
+
 .tabs {
   display: flex;
   justify-content: center;

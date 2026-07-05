@@ -1,14 +1,18 @@
-# Color Fun! 🎨
+# Danya's Games 🎈
 
-An **ad-free coloring game for young kids** (aimed at ~4-year-olds). Pick a
-picture from several categories, then **fill between the lines** with a tap,
-**brush** freehand, add **stickers**, undo mistakes, and **save** the result.
+An **ad-free mini-games site for young kids** (aimed at ~4-year-olds). The
+landing page is a hub of games; each game lives on its own page:
+
+- **🎨 Coloring** (`/coloring/`) — pick a picture, fill between the lines with
+  a tap, brush freehand, add stickers, save the result.
+- **👗 Dress Up** (`/dressup/`) — dress the doll (hair, dresses, shoes, hats,
+  all with sparkles), then recolor any part of any outfit with the palette.
 
 Built to be **simple and lightweight** so it runs smoothly on cheap / old
 tablets. Phase 1 is this web prototype; Phase 2 wraps the same code as a native
 app (see below).
 
-## Features
+## Coloring features
 
 - 🪣 **Fill** — tap any region to color inside the lines (instant, no bleeding)
 - 🖌️ **Brush** — freehand drawing in 3 sizes, under the black outlines
@@ -51,14 +55,26 @@ layers in between.
 ### Project layout
 
 ```
+index.html           landing hub (game cards)
+coloring/index.html  coloring game entry
+dressup/index.html   dress-up game entry
 src/
-  main.js            screen switching + coloring screen
-  state.js           tool / color / mute state
-  audio.js           WebAudio blips
+  main.js            coloring: screen switching + coloring screen
+  state.js           tool / color / mute state (shared)
+  audio.js           WebAudio blips (shared)
   engine/            board, brush, history (undo/clear), PNG exporter
-  ui/                palette, toolbar, picker
+  ui/                palette (shared), toolbar, picker
   art/               SVG pictures by category + stickers + registry
+  dressup/           dress-up game: doll + wardrobe + UI
 ```
+
+### Dress Up
+
+The doll and every wardrobe item are original parametric SVGs (same kawaii
+style as the coloring pages). Items are grouped by slot — Hair, Dress, Shoes,
+Hats — and every shape is a tappable `region`, so a kid can equip an outfit
+and then recolor each part (bodice, skirt, sparkles, even skin and cheeks)
+with the shared palette. Sparkle stars are individual regions too.
 
 ### Where the art comes from
 

@@ -9,6 +9,13 @@ export function createPicker(onChoose) {
   const screen = document.createElement('div')
   screen.className = 'screen picker'
 
+  // link back to the games hub (landing page)
+  const hub = document.createElement('a')
+  hub.className = 'hub-btn'
+  hub.href = '../'
+  hub.textContent = '🎈'
+  hub.title = 'All games'
+
   const title = document.createElement('h1')
   title.className = 'picker-title'
   title.textContent = 'Pick a picture!'
@@ -61,6 +68,6 @@ export function createPicker(onChoose) {
   })
 
   renderGrid()
-  screen.append(title, tabs, grid)
+  screen.append(hub, title, tabs, grid)
   return { el: screen }
 }

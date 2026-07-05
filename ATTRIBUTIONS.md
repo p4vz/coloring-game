@@ -20,6 +20,13 @@ Pipeline: crop each animal → potrace for smooth outlines → connected-compone
 segmentation of the white areas for tap-to-fill regions (script kept in repo
 history).
 
+## Dress Up game — original
+
+The doll and all wardrobe items in `src/dressup/wardrobe.js` (hair styles,
+dresses, shoes, hats, sparkles) are **original parametric SVG art created for
+this project**, dedicated to the public domain under
+[CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+
 ## Princess & Gymnastics — original
 
 The `src/art/princess/*.svg` kawaii princesses and the
