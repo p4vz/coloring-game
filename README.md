@@ -77,7 +77,12 @@ and Scene (backgrounds). Boy slots swap Dress for Clothes (tee, suit, overalls,
 hoodie, superhero, raincoat) and add Facial Hair (mustaches, goatee, beard).
 Every shape is a tappable `region`, so a kid can equip an outfit and recolor
 each part (bodice, skirt, sparkles, beads, pet fur, even skin and cheeks) with
-the shared palette. A 🎲 button deals a random surprise outfit.
+the shared palette. A 🎲 button deals a random surprise outfit. Pets include a
+dragon and a fish bowl; a seasonal set adds a winter coat, snow jacket,
+sundress, beanie, winter hat, cozy scarf, and a snowy-day scene. The outfit
+(doll, clothes, and colors) **auto-saves to the device** and is restored on the
+next visit, and saving a picture plays a little "Ta-da!" celebration before the
+PNG downloads.
 
 ### Where the art comes from
 

@@ -133,6 +133,18 @@ const GIRL_DRESSES = [
     `<path class="region" fill="#2ec4b6" ${S} d="M126 140 Q150 154 174 140 L168 300 Q150 308 132 300 Z"/>` +
     `<path class="region" fill="#a7f0ea" ${S} d="M132 298 Q150 306 168 298 Q192 330 200 352 Q150 340 100 352 Q108 330 132 298 Z"/>` +
     sparkle(150, 220, 6) + sparkle(138, 262, 6) + sparkle(162, 262, 6) },
+  { id: 'winter-coat', name: 'Winter Coat', thumbBox: '85 130 130 200', svg:
+    `<path class="region" fill="#ff5a5f" ${S} d="M122 140 Q150 154 178 140 L192 300 Q150 312 108 300 Z"/>` +
+    `<path class="region" fill="#ffffff" ${S25} d="M108 292 Q150 306 192 292 L194 308 Q150 320 106 308 Z"/>` +
+    `<circle class="region" fill="#ffffff" ${S25} cx="150" cy="190" r="6"/>` +
+    `<circle class="region" fill="#ffffff" ${S25} cx="150" cy="228" r="6"/>` +
+    `<circle class="region" fill="#ffffff" ${S25} cx="150" cy="266" r="6"/>` },
+  { id: 'sundress', name: 'Sundress', thumbBox: '85 130 130 170', svg:
+    `<rect class="region" fill="#ffd34e" ${S25} x="132" y="136" width="8" height="20" rx="4"/>` +
+    `<rect class="region" fill="#ffd34e" ${S25} x="160" y="136" width="8" height="20" rx="4"/>` +
+    `<path class="region" fill="#ffd34e" ${S} d="M128 152 Q150 162 172 152 L192 284 Q150 298 108 284 Z"/>` +
+    `<circle class="region" fill="#ff70a6" ${S25} cx="170" cy="262" r="9"/>` +
+    `<circle class="region" fill="#ffffff" ${S25} cx="170" cy="262" r="3.5"/>` },
 ]
 
 const BOY_CLOTHES = [
@@ -164,6 +176,11 @@ const BOY_CLOTHES = [
     `<circle class="region" fill="#ff9f1c" ${S25} cx="150" cy="190" r="6"/>` +
     `<circle class="region" fill="#ff9f1c" ${S25} cx="150" cy="230" r="6"/>` +
     `<circle class="region" fill="#ff9f1c" ${S25} cx="150" cy="270" r="6"/>` },
+  { id: 'snow-jacket', name: 'Snow Jacket', thumbBox: '85 130 130 240', svg:
+    `<path class="region" fill="#a8e4ff" ${S} d="M120 142 Q150 156 180 142 L178 228 Q150 238 122 228 Z"/>` +
+    `<path fill="none" ${S25} d="M124 172 Q150 182 176 172 M124 200 Q150 210 176 200 M150 152 V232"/>` +
+    `<rect class="region" fill="#4d96ff" ${S} x="127" y="226" width="22" height="136" rx="9"/>` +
+    `<rect class="region" fill="#4d96ff" ${S} x="151" y="226" width="22" height="136" rx="9"/>` },
 ]
 
 const SHOES = [
@@ -239,6 +256,14 @@ const HATS = [
   { id: 'party-hat', name: 'Party Hat', thumbBox: '110 -20 80 80', svg:
     `<path class="region" fill="#b388eb" ${S} d="M128 52 L150 -8 L172 52 Q150 62 128 52 Z"/>` +
     sparkle(150, 30, 6) + `<circle class="region" fill="#ffd34e" ${S25} cx="150" cy="-8" r="7"/>` },
+  { id: 'beanie', name: 'Beanie', thumbBox: '100 -8 100 70', svg:
+    `<path class="region" fill="#2ec4b6" ${S} d="M114 52 Q116 12 150 12 Q184 12 186 52 Q150 40 114 52 Z"/>` +
+    `<rect class="region" fill="#a7f0ea" ${S25} x="112" y="42" width="76" height="14" rx="7"/>` +
+    `<circle class="region" fill="#ffffff" ${S25} cx="150" cy="8" r="9"/>` },
+  { id: 'winter-hat', name: 'Winter Hat', thumbBox: '100 -4 130 66', svg:
+    `<path class="region" fill="#ff5a5f" ${S} d="M114 50 Q120 8 156 12 Q192 16 212 34 Q188 34 178 42 Q150 26 114 50 Z"/>` +
+    `<rect class="region" fill="#ffffff" ${S25} x="110" y="42" width="74" height="15" rx="7"/>` +
+    `<circle class="region" fill="#ffffff" ${S25} cx="214" cy="36" r="9"/>` },
 ]
 
 const NECKLACES = [
@@ -254,6 +279,10 @@ const NECKLACES = [
   { id: 'beads', name: 'Rainbow Beads', thumbBox: '118 140 64 36', svg:
     [['#ff5a5f', 132, 152], ['#ffd34e', 141, 158], ['#6bcb77', 150, 160], ['#4d96ff', 159, 158], ['#b388eb', 168, 152]]
       .map(([c, x, y]) => `<circle class="region" fill="${c}" ${S25} cx="${x}" cy="${y}" r="6"/>`).join('') },
+  { id: 'scarf', name: 'Cozy Scarf', thumbBox: '116 134 70 84', svg:
+    `<rect class="region" fill="#ff9f1c" ${S25} x="128" y="140" width="44" height="16" rx="8"/>` +
+    `<path class="region" fill="#ff9f1c" ${S25} d="M156 152 L166 198 q2 10 -8 11 l-8 -1 q-8 -2 -6 -10 L150 156 Z"/>` +
+    `<path fill="none" ${S25} d="M152 206 v8 M160 205 v8"/>` },
 ]
 
 const EARRINGS = [
@@ -362,6 +391,26 @@ const PETS = [
     `<circle class="region" fill="#2ec4b6" ${S25} cx="72" cy="320" r="7"/>` +
     `<circle fill="#2b2b2b" cx="50" cy="332" r="2.6"/><circle fill="#2b2b2b" cx="62" cy="332" r="2.6"/>` +
     `<path fill="none" ${S25} d="M52 340 q4 4 8 0"/>` + sparkle(84, 306, 6) },
+  { id: 'dragon', name: 'Dragon', thumbBox: '10 280 100 114', svg:
+    `<path class="region" fill="#4e9e5c" ${S25} d="M30 352 L14 336 L36 340 Z"/>` +
+    `<path class="region" fill="#4e9e5c" ${S25} d="M82 352 L98 336 L76 340 Z"/>` +
+    `<ellipse class="region" fill="#6bcb77" ${S} cx="56" cy="366" rx="24" ry="16"/>` +
+    `<path class="region" fill="#6bcb77" ${S25} d="M80 364 q16 -4 14 -18 q12 12 -4 24 z"/>` +
+    `<path class="region" fill="#4e9e5c" ${S25} d="M44 316 L48 300 L56 314 Z"/>` +
+    `<path class="region" fill="#4e9e5c" ${S25} d="M68 316 L64 300 L56 314 Z"/>` +
+    `<circle class="region" fill="#6bcb77" ${S} cx="56" cy="332" r="19"/>` +
+    `<circle fill="#2b2b2b" cx="50" cy="330" r="2.6"/><circle fill="#2b2b2b" cx="62" cy="330" r="2.6"/>` +
+    `<path fill="none" ${S25} d="M52 339 q4 4 8 0"/>` +
+    `<path class="region" fill="#ff9f1c" ${S25} d="M78 330 q10 -6 8 4 q6 -2 4 6 q-8 4 -12 -2 q-2 -5 0 -8 z"/>` },
+  { id: 'fishbowl', name: 'Fish Bowl', thumbBox: '18 306 80 92', svg:
+    `<ellipse class="region" fill="#c99b6a" ${S25} cx="56" cy="384" rx="26" ry="8"/>` +
+    `<circle class="region" fill="#e8f4ff" fill-opacity="0.6" ${S} cx="56" cy="352" r="28"/>` +
+    `<path class="region" fill="#a8e4ff" ${S25} d="M30 358 a28 28 0 0 0 52 0 q-26 10 -52 0 z"/>` +
+    `<ellipse class="region" fill="#ff9f1c" ${S25} cx="52" cy="352" rx="10" ry="7"/>` +
+    `<path class="region" fill="#ff9f1c" ${S25} d="M62 352 L74 344 L74 360 Z"/>` +
+    `<circle fill="#2b2b2b" cx="47" cy="350" r="2"/>` +
+    `<circle class="region" fill="#ffffff" ${S25} cx="60" cy="336" r="3"/>` +
+    `<circle class="region" fill="#ffffff" ${S25} cx="54" cy="328" r="2.4"/>` },
 ]
 
 const SCENES = [
@@ -388,6 +437,15 @@ const SCENES = [
     `<path class="region" fill="#ff5a5f" ${S25} d="M298 2 H240 Q254 120 242 404 H298 Z"/>` +
     `<path class="region" fill="#e04347" ${S25} d="M2 2 H298 V34 Q150 58 2 34 Z"/>` +
     sparkle(150, 60, 9) },
+  { id: 'snow', name: 'Snowy Day', thumbBox: '0 0 300 470', svg:
+    `<rect class="region" fill="#ffffff" ${S25} x="2" y="396" width="296" height="70" rx="8"/>` +
+    `<circle class="region" fill="#ffffff" ${S} cx="256" cy="384" r="20"/>` +
+    `<circle class="region" fill="#ffffff" ${S} cx="256" cy="350" r="14"/>` +
+    `<circle fill="#2b2b2b" cx="251" cy="347" r="2.2"/><circle fill="#2b2b2b" cx="261" cy="347" r="2.2"/>` +
+    `<path class="region" fill="#ff9f1c" ${S25} d="M256 352 L268 356 L256 359 Z"/>` +
+    `<circle fill="#2b2b2b" cx="256" cy="378" r="2.4"/><circle fill="#2b2b2b" cx="256" cy="388" r="2.4"/>` +
+    sparkle(36, 56, 7, '#ffffff') + sparkle(90, 30, 6, '#ffffff') +
+    sparkle(210, 44, 6, '#ffffff') + sparkle(268, 90, 7, '#ffffff') + sparkle(60, 120, 5, '#ffffff') },
 ]
 
 // ---------- doll configs ------------------------------------------------------

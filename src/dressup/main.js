@@ -72,6 +72,7 @@ stage.addEventListener('pointerdown', (e) => {
   if (region.getAttribute('fill') === state.color) return
   region.setAttribute('fill', state.color)
   sounds.fill()
+  saveOutfit()
 })
 
 // ---------- wardrobe panel ----------
@@ -93,12 +94,37 @@ let activeSlot = 'dress'
 
 const wardrobe = () => WARDROBES[currentDoll]
 
+// ---------- outfit persistence (auto-save so the doll is waiting next visit) --
+const OUTFIT_KEY = 'elana.dressup.outfit.v1'
+let saveTimer = null
+
+function saveOutfit() {
+  clearTimeout(saveTimer)
+  saveTimer = setTimeout(() => {
+    try {
+      const fills = [...stage.querySelectorAll('.region')].map((r) => r.getAttribute('fill'))
+      localStorage.setItem(OUTFIT_KEY, JSON.stringify({ doll: currentDoll, worn, fills }))
+    } catch {
+      // storage unavailable (private mode) — the game just won't remember
+    }
+  }, 250)
+}
+
+function loadOutfit() {
+  try {
+    return JSON.parse(localStorage.getItem(OUTFIT_KEY))
+  } catch {
+    return null
+  }
+}
+
 function equip(slot, itemId) {
   const item = wardrobe()[slot]?.find((i) => i.id === itemId)
   const anchor = stage.querySelector(`[data-slot="${slot}"]`)
   if (!item || !anchor) return
   anchor.innerHTML = item.svg
   worn[slot] = itemId
+  saveOutfit()
 }
 
 function renderItems() {
@@ -137,13 +163,27 @@ function renderSlotTabs() {
   }
 }
 
-function buildDoll() {
+function buildDoll(savedWorn = null, savedFills = null) {
   stage.innerHTML = dollSvg(currentDoll)
   worn = { ...DEFAULTS_BY_DOLL[currentDoll] }
+  if (savedWorn) {
+    // only restore item ids that still exist in the wardrobe
+    for (const [slot, id] of Object.entries(savedWorn)) {
+      if (wardrobe()[slot]?.some((i) => i.id === id)) worn[slot] = id
+    }
+  }
   for (const slot of Object.keys(worn)) equip(slot, worn[slot])
+  // re-apply saved colors; only safe when the region list matches exactly
+  if (savedFills) {
+    const regions = [...stage.querySelectorAll('.region')]
+    if (regions.length === savedFills.length) {
+      regions.forEach((r, i) => savedFills[i] && r.setAttribute('fill', savedFills[i]))
+    }
+  }
   if (!wardrobe()[activeSlot]) activeSlot = 'dress'
   renderSlotTabs()
   renderItems()
+  saveOutfit()
 }
 
 const dollButtons = DOLLS.map((d) => {
@@ -181,12 +221,23 @@ surpriseBtn.addEventListener('click', () => {
 
 resetBtn.addEventListener('click', () => {
   sounds.undo()
+  try {
+    localStorage.removeItem(OUTFIT_KEY)
+  } catch {
+    // ignore
+  }
   buildDoll()
 })
 
 saveBtn.addEventListener('click', async () => {
-  sounds.pick()
   saveBtn.disabled = true
+  // little "ta-da!" celebration over the doll before the picture downloads
+  const tada = document.createElement('div')
+  tada.className = 'du-tada'
+  tada.innerHTML = '<span class="du-tada-star s1">🌟</span><b>Ta-da!</b><span class="du-tada-star s2">🌟</span>'
+  stage.appendChild(tada)
+  sounds.tada()
+  setTimeout(() => tada.remove(), 1100)
   try {
     await exportPng(stage.querySelector('svg'), 'my-doll.png')
   } catch (err) {
@@ -198,4 +249,13 @@ saveBtn.addEventListener('click', async () => {
 
 screen.append(topbar, stage, panel, paletteWrap)
 app.replaceChildren(screen)
-buildDoll()
+
+// restore the last outfit (doll, clothes, and colors) if one was saved
+const saved = loadOutfit()
+if (saved && WARDROBES[saved.doll]) {
+  currentDoll = saved.doll
+  dollButtons.forEach((b, i) => b.classList.toggle('active', DOLLS[i].id === currentDoll))
+  buildDoll(saved.worn, saved.fills)
+} else {
+  buildDoll()
+}

@@ -44,4 +44,10 @@ export const sounds = {
   brush: () => blip({ freq: 360, dur: 0.08, type: 'sine', gain: 0.08 }),
   undo: () => blip({ freq: 300, dur: 0.12, type: 'triangle' }),
   pick: () => blip({ freq: 880, dur: 0.1, type: 'sine', gain: 0.12 }),
+  // little ascending fanfare for "ta-da!" moments
+  tada: () => {
+    blip({ freq: 523, dur: 0.14, type: 'triangle' })
+    setTimeout(() => blip({ freq: 659, dur: 0.14, type: 'triangle' }), 110)
+    setTimeout(() => blip({ freq: 784, dur: 0.22, type: 'triangle' }), 220)
+  },
 }
