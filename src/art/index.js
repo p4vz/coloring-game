@@ -2,7 +2,7 @@
 // in as raw strings at build time, so adding art is just dropping a new .svg
 // into the right folder — no manual list to maintain.
 
-const modules = import.meta.glob('./{animals,vehicles,houses,princess}/*.svg', {
+const modules = import.meta.glob('./{animals,vehicles,houses,princess,gymnastics}/*.svg', {
   eager: true,
   query: '?raw',
   import: 'default',
@@ -13,6 +13,7 @@ export const CATEGORIES = [
   { id: 'vehicles', label: 'Vehicles', icon: '🚂' },
   { id: 'houses', label: 'Houses', icon: '🏠' },
   { id: 'princess', label: 'Princess', icon: '👑' },
+  { id: 'gymnastics', label: 'Gymnastics', icon: '🤸' },
 ]
 
 // Turn a file stem into a friendly display name: "fire-engine" -> "Fire Engine".
