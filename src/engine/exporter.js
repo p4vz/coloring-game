@@ -1,6 +1,6 @@
 // Save the current picture as a PNG. We serialize the live SVG, rasterize it
-// onto an offscreen canvas, and trigger a download. In Phase 2 (Capacitor) this
-// is the one spot that swaps to the native filesystem/share API.
+// onto an offscreen canvas, and trigger a download. Inside the Android app a
+// download link does nothing, so the PNG goes to the system share sheet instead.
 
 const EXPORT_WIDTH = 1600 // crisp enough to print, still light
 
@@ -39,6 +39,9 @@ export function exportPng(svg, filename = 'my-coloring.png') {
 
       canvas.toBlob((png) => {
         if (!png) return reject(new Error('export failed'))
+        if (window.Capacitor?.isNativePlatform?.()) {
+          return import('./native-save.js').then((m) => m.sharePng(png, filename)).then(resolve, reject)
+        }
         const a = document.createElement('a')
         a.href = URL.createObjectURL(png)
         a.download = filename
