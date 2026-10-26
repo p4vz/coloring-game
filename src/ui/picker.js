@@ -12,7 +12,7 @@ export function createPicker(onChoose) {
   // link back to the games hub (landing page)
   const hub = document.createElement('a')
   hub.className = 'hub-btn'
-  hub.href = '../'
+  hub.href = '../index.html'
   hub.textContent = '🎈'
   hub.title = 'All games'
 

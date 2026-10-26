@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#ffd34e" />
     <link
       rel="icon"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎈</text></svg>"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%0A  %3Cpath d='M512 742 C 470 800%2C 560 840%2C 512 900 C 470 950%2C 540 980%2C 520 1010' fill='none' stroke='%232b2b2b' stroke-width='22' stroke-linecap='round'/%3E%0A  %3Cpath d='M478 712 L546 712 L530 752 L494 752 Z' fill='%23e04347' stroke='%232b2b2b' stroke-width='22' stroke-linejoin='round'/%3E%0A  %3Cellipse cx='512' cy='430' rx='250' ry='290' fill='%23ff5a5f' stroke='%232b2b2b' stroke-width='28'/%3E%0A  %3Cellipse cx='410' cy='300' rx='52' ry='86' fill='%23ffffff' opacity='0.55' transform='rotate%2828 410 300%29'/%3E%0A  %3Ccircle cx='440' cy='450' r='26' fill='%232b2b2b'/%3E%0A  %3Ccircle cx='584' cy='450' r='26' fill='%232b2b2b'/%3E%0A  %3Ccircle cx='380' cy='512' r='34' fill='%23ffb3d1'/%3E%0A  %3Ccircle cx='644' cy='512' r='34' fill='%23ffb3d1'/%3E%0A  %3Cpath d='M462 520 Q512 572 562 520' fill='none' stroke='%232b2b2b' stroke-width='22' stroke-linecap='round'/%3E%0A  %3Cpath d='M812 150 L830 205 L888 205 L841 239 L859 294 L812 260 L765 294 L783 239 L736 205 L794 205 Z' fill='%23ffd34e' stroke='%232b2b2b' stroke-width='16' stroke-linejoin='round'/%3E%0A%3C/svg%3E"
     />
     <title>Elana's Games</title>
     <style>
@@ -76,6 +76,46 @@
         font-size: clamp(18px, 3.4vw, 30px);
         font-weight: 800;
       }
+      .brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .logo {
+        width: clamp(90px, 18vw, 150px);
+        height: auto;
+        animation: bob 3s ease-in-out infinite;
+      }
+      @keyframes bob {
+        50% {
+          transform: translateY(-8px) rotate(-3deg);
+        }
+      }
+      .download {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 22px;
+        border-radius: 999px;
+        background: #3ddc84;
+        color: #fff;
+        font-weight: 800;
+        font-size: clamp(16px, 2.6vw, 20px);
+        text-decoration: none;
+        box-shadow: 0 4px 0 #23a861;
+      }
+      .download:active {
+        transform: translateY(3px);
+        box-shadow: 0 1px 0 #23a861;
+      }
+      .download small {
+        font-weight: 600;
+        opacity: 0.85;
+      }
+      .native .download {
+        display: none;
+      }
       footer {
         font-size: 14px;
         opacity: 0.55;
@@ -85,18 +125,39 @@
   </head>
   <body>
     <div class="hub">
-      <h1>🎈 Elana's Games 🎈</h1>
+      <header class="brand">
+        <svg class="logo" role="img" aria-label="Elana's Games balloon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+          <path d="M512 742 C 470 800, 560 840, 512 900 C 470 950, 540 980, 520 1010" fill="none" stroke="#2b2b2b" stroke-width="22" stroke-linecap="round"/>
+          <path d="M478 712 L546 712 L530 752 L494 752 Z" fill="#e04347" stroke="#2b2b2b" stroke-width="22" stroke-linejoin="round"/>
+          <ellipse cx="512" cy="430" rx="250" ry="290" fill="#ff5a5f" stroke="#2b2b2b" stroke-width="28"/>
+          <ellipse cx="410" cy="300" rx="52" ry="86" fill="#ffffff" opacity="0.55" transform="rotate(28 410 300)"/>
+          <circle cx="440" cy="450" r="26" fill="#2b2b2b"/>
+          <circle cx="584" cy="450" r="26" fill="#2b2b2b"/>
+          <circle cx="380" cy="512" r="34" fill="#ffb3d1"/>
+          <circle cx="644" cy="512" r="34" fill="#ffb3d1"/>
+          <path d="M462 520 Q512 572 562 520" fill="none" stroke="#2b2b2b" stroke-width="22" stroke-linecap="round"/>
+          <path d="M812 150 L830 205 L888 205 L841 239 L859 294 L812 260 L765 294 L783 239 L736 205 L794 205 Z" fill="#ffd34e" stroke="#2b2b2b" stroke-width="16" stroke-linejoin="round"/>
+        </svg>
+        <h1>Elana's Games</h1>
+      </header>
       <nav class="games">
-        <a class="game-card" href="./coloring/">
+        <a class="game-card" href="./coloring/index.html">
           <span class="game-emoji">🎨</span>
           <span class="game-name">Coloring</span>
         </a>
-        <a class="game-card" href="./dressup/">
+        <a class="game-card" href="./dressup/index.html">
           <span class="game-emoji">👗</span>
           <span class="game-name">Dress Up</span>
         </a>
       </nav>
+      <a class="download" href="./elanas-games.apk" download="elanas-games.apk">
+        📱 Get the Android app <small>(APK)</small>
+      </a>
       <footer>No ads · No tracking · Just play</footer>
     </div>
+    <script>
+      // Inside the installed app there's nothing to download.
+      if (window.Capacitor?.isNativePlatform?.()) document.body.classList.add('native')
+    </script>
   </body>
 </html>

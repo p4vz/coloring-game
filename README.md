@@ -28,7 +28,7 @@ app (see below).
 
 ## Run it
 
-Requires Node.js 18+.
+Requires Node.js 22+ (Capacitor tooling); the web build alone works on 18+.
 
 ```bash
 npm install
@@ -102,21 +102,35 @@ Drop a new `.svg` into `src/art/animals|vehicles|houses|dolls/` following the
 `region` / `outline` structure in any existing file. It is picked up
 automatically (via `import.meta.glob`) — no list to edit.
 
-## Phase 2 — native app (planned)
+## Android app (APK)
 
-The build is a self-contained static bundle, so it wraps with
-[Capacitor](https://capacitorjs.com/) without code changes:
+The site is also packaged as an Android app, **Elana's Games**
+(`com.elana.games`), with [Capacitor](https://capacitorjs.com/). Every push to
+the deploy branch builds the APK in GitHub Actions and publishes it next to the
+site as `elanas-games.apk`; the landing page has a **Get the Android app**
+button (hidden when already running inside the app).
+
+Installing on a device: open the site in Chrome on the phone/tablet, tap the
+button, open the downloaded file, and allow "Install unknown apps" for Chrome
+when Android asks. New builds install as updates over the old one (same
+signing key, rising version code), keeping the saved outfit.
+
+- Icon / splash sources: `assets/logo.svg` → `assets/*.png`
+  (`npx capacitor-assets generate --android` turns them into launcher icons).
+- Signing: `android-signing/debug.keystore` (a debug key, committed on purpose
+  so updates keep the same signature). It's fine for sideloading to your own
+  devices but not for the Play Store.
+- The APK is on the public Pages URL, so anyone with the link could download it.
+
+Build locally (needs Node 22+, JDK 21, Android SDK):
 
 ```bash
-npm i -D @capacitor/cli @capacitor/core
-npx cap init "Color Fun" com.example.colorfun --web-dir dist
 npm run build
-npx cap add android   # and / or: npx cap add ios
-npx cap copy
+npx cap add android            # first time only; android/ is gitignored
+npx capacitor-assets generate --android
+npx cap sync android
+cd android && ./gradlew assembleDebug
 ```
-
-The only platform-specific shim needed is **saving to the device** — swap the
-PNG download in `src/engine/exporter.js` for the Capacitor Filesystem/Share API.
 
 ## License
 

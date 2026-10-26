@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Elana's Games mark: a smiling kawaii balloon with a sparkle -->
+  <path d="M512 742 C 470 800, 560 840, 512 900 C 470 950, 540 980, 520 1010" fill="none" stroke="#2b2b2b" stroke-width="22" stroke-linecap="round"/>
+  <path d="M478 712 L546 712 L530 752 L494 752 Z" fill="#e04347" stroke="#2b2b2b" stroke-width="22" stroke-linejoin="round"/>
+  <ellipse cx="512" cy="430" rx="250" ry="290" fill="#ff5a5f" stroke="#2b2b2b" stroke-width="28"/>
+  <ellipse cx="410" cy="300" rx="52" ry="86" fill="#ffffff" opacity="0.55" transform="rotate(28 410 300)"/>
+  <circle cx="440" cy="450" r="26" fill="#2b2b2b"/>
+  <circle cx="584" cy="450" r="26" fill="#2b2b2b"/>
+  <circle cx="380" cy="512" r="34" fill="#ffb3d1"/>
+  <circle cx="644" cy="512" r="34" fill="#ffb3d1"/>
+  <path d="M462 520 Q512 572 562 520" fill="none" stroke="#2b2b2b" stroke-width="22" stroke-linecap="round"/>
+  <path d="M812 150 L830 205 L888 205 L841 239 L859 294 L812 260 L765 294 L783 239 L736 205 L794 205 Z" fill="#ffd34e" stroke="#2b2b2b" stroke-width="16" stroke-linejoin="round"/>
+</svg>

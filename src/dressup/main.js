@@ -22,7 +22,7 @@ topbar.className = 'du-topbar'
 
 const hubBtn = document.createElement('a')
 hubBtn.className = 'du-icon-btn'
-hubBtn.href = '../'
+hubBtn.href = '../index.html'
 hubBtn.innerHTML = '🎈'
 hubBtn.title = 'All games'
 

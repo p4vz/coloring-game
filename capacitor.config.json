@@ -1,0 +1,8 @@
+{
+  "appId": "com.elana.games",
+  "appName": "Elana's Games",
+  "webDir": "dist",
+  "android": {
+    "backgroundColor": "#fff7e6"
+  }
+}
