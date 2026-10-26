@@ -20,6 +20,24 @@ Pipeline: crop each animal → potrace for smooth outlines → connected-compone
 segmentation of the white areas for tap-to-fill regions (script kept in repo
 history).
 
+## Farm & Wild — Monkey Pen coloring books
+
+The `src/art/farm/*` (11 pages) and `src/art/wild/*` (18 pages) pictures are
+vectorized from Monkey Pen's free **Domestic Animals** and **Wild Animal**
+coloring books (illustrated by Maail Illustrations).
+
+- Source: https://monkeypen.com/
+- Terms (from each book's back cover): free for non-commercial use; **if used
+  commercially, give credit and link back to https://monkeypen.com/**.
+- The app shows "Coloring pages by Monkey Pen" with a link under the Farm and
+  Wild tabs. Keep that credit if the app is published.
+
+The pages' "© monkeypen.com" footer strip is cropped from the coloring area
+(the credit lives in the app instead). Covers and the promo page were skipped.
+Pipeline: rasterize at 110 dpi → potrace thin-line outlines; enclosed white
+areas → tap-fill regions (grown 2px under the lines so there are no seams);
+solid-black areas → colorable regions. Pages load lazily, one chunk each.
+
 ## Dress Up game — original
 
 The doll and all wardrobe items in `src/dressup/wardrobe.js` (hair styles,
@@ -73,5 +91,6 @@ dedicated to the public domain under
 | Pictures | Source | License |
 |----------|--------|---------|
 | `src/art/animals/*` | Traced from owner-supplied reference | ⚠️ confirm rights |
+| `src/art/farm/*`, `src/art/wild/*` | Monkey Pen coloring books | Free; credit + link to monkeypen.com |
 | `src/art/vehicles/*` | Twemoji (© Twitter) | CC‑BY 4.0 |
 | `src/art/princess/*`, `src/art/gymnastics/*`, `src/art/houses/*`, `src/art/stickers.js` | Original (this repo) | CC0 1.0 |

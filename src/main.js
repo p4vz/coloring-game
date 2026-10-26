@@ -10,6 +10,7 @@ import { exportPng } from './engine/exporter.js'
 import { createPalette } from './ui/palette.js'
 import { createToolbar } from './ui/toolbar.js'
 import { createPicker } from './ui/picker.js'
+import { loadSvg } from './art/index.js'
 
 const app = document.getElementById('app')
 loadPrefs()
@@ -104,7 +105,14 @@ function openColoring(tpl) {
   screen.append(topbar, stage, controls)
   show(screen)
 
-  board.load(tpl.svg)
+  stage.classList.add('loading')
+  loadSvg(tpl)
+    .then((svg) => {
+      // ignore a slow load if the kid already went back to the picker
+      if (stage.isConnected) board.load(svg)
+    })
+    .catch((err) => console.error(err))
+    .finally(() => stage.classList.remove('loading'))
 }
 
 openPicker()

@@ -9,7 +9,8 @@ export default defineConfig({
   base: './',
   build: {
     target: 'es2018', // broad support for older tablet browsers
-    assetsInlineLimit: 8192,
+    // keep coloring-book thumbnails as separate files (lazy) instead of base64
+    assetsInlineLimit: (file) => (file.endsWith('.jpg') ? false : undefined),
     rollupOptions: {
       input: {
         main: page('index.html'),

@@ -21,7 +21,9 @@ app (see below).
 - ↩️ **Undo** and 🧽 **Start over**
 - 💾 **Save** the finished picture as a PNG
 - 🔊 Gentle **sounds** with a mute toggle (remembered between visits)
-- 📚 **5 categories**: Animals, Vehicles, Houses, Princess, Gymnastics (~48 pictures)
+- 📚 **7 categories**: Animals, Farm, Wild, Vehicles, Houses, Princess, Gymnastics (~77 pictures)
+- 📖 **Farm & Wild** are full-page scenes from Monkey Pen's free coloring books;
+  they load one page at a time when tapped, so the app stays light
 - 🚫 **No ads, no tracking, no accounts, no external links**
 
 ## Run it

@@ -1,6 +1,6 @@
-// Home screen: big category tabs (Animals / Vehicles / Houses / Dolls) above a
-// grid of picture thumbnails. Tapping a thumbnail opens it on the coloring
-// screen. Thumbnails reuse each picture's own SVG, scaled down.
+// Home screen: big category tabs above a grid of picture thumbnails. Tapping a
+// thumbnail opens it on the coloring screen. Thumbnails reuse each picture's own
+// SVG, except lazy coloring-book pages, which show a small JPEG instead.
 
 import { CATEGORIES, TEMPLATES } from '../art/index.js'
 import { sounds } from '../audio.js'
@@ -26,10 +26,17 @@ export function createPicker(onChoose) {
   const grid = document.createElement('div')
   grid.className = 'thumb-grid'
 
+  // Monkey Pen's license asks for credit + a link wherever their pages are used
+  const credit = document.createElement('div')
+  credit.className = 'picker-credit'
+  credit.innerHTML =
+    'Coloring pages by <a href="https://monkeypen.com/" target="_blank" rel="noopener">Monkey Pen</a>'
+
   let current = CATEGORIES[0].id
 
   function renderGrid() {
     grid.innerHTML = ''
+    credit.hidden = !TEMPLATES[current].some((t) => t.thumb)
     for (const tpl of TEMPLATES[current]) {
       const card = document.createElement('button')
       card.className = 'thumb'
@@ -37,7 +44,15 @@ export function createPicker(onChoose) {
 
       const art = document.createElement('div')
       art.className = 'thumb-art'
-      art.innerHTML = tpl.svg
+      if (tpl.svg) {
+        art.innerHTML = tpl.svg
+      } else {
+        const img = document.createElement('img')
+        img.src = tpl.thumb
+        img.alt = ''
+        img.loading = 'lazy'
+        art.appendChild(img)
+      }
 
       const name = document.createElement('span')
       name.className = 'thumb-name'
@@ -68,6 +83,6 @@ export function createPicker(onChoose) {
   })
 
   renderGrid()
-  screen.append(hub, title, tabs, grid)
+  screen.append(hub, title, tabs, grid, credit)
   return { el: screen }
 }

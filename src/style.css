@@ -133,9 +133,28 @@ body {
   aspect-ratio: 1;
   display: flex;
 }
-.thumb-art svg {
+.thumb-art svg,
+.thumb-art img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
+}
+.picker-credit {
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.6;
+  padding-bottom: 6px;
+}
+.picker-credit a {
+  color: inherit;
+}
+/* gentle pulse while a lazy coloring-book page is fetched */
+.stage.loading {
+  animation: stage-pulse 1s ease-in-out infinite alternate;
+}
+@keyframes stage-pulse {
+  from { opacity: 1; }
+  to { opacity: 0.55; }
 }
 .thumb-name {
   font-weight: 700;
