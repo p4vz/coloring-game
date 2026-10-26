@@ -12,7 +12,7 @@ import { createToolbar } from '../ui/toolbar.js'
 import { createHistory } from '../engine/history.js'
 import { createStroke } from '../engine/brush.js'
 import { makeSticker } from '../art/stickers.js'
-import { dollSvg, WARDROBES, DEFAULTS_BY_DOLL, SLOTS_BY_DOLL, DOLLS } from './wardrobe.js'
+import { dollSvg, WARDROBE, SLOTS, PRESETS, thumbSvg, propTransform } from './wardrobe.js'
 
 const app = document.getElementById('app')
 loadPrefs()
@@ -171,14 +171,15 @@ slotTabs.className = 'du-slot-tabs'
 const itemGrid = document.createElement('div')
 itemGrid.className = 'du-items'
 
-let currentDoll = 'girl'
-let worn = { ...DEFAULTS_BY_DOLL[currentDoll] }
-let activeSlot = 'dress'
+const presetFor = (id) => PRESETS.find((p) => p.id === id) || PRESETS[0]
+let currentDoll = PRESETS[0].id
+let worn = { ...presetFor(currentDoll).worn }
+let activeSlot = 'outfit'
 
-const wardrobe = () => WARDROBES[currentDoll]
+const wardrobe = () => WARDROBE
 
 // ---------- outfit persistence (auto-save so the doll is waiting next visit) --
-const OUTFIT_KEY = 'elana.dressup.outfit.v1'
+const OUTFIT_KEY = 'elana.dressup.outfit.v2'
 let saveTimer = null
 
 function writeOutfit() {
@@ -216,6 +217,10 @@ function equip(slot, itemId) {
   const anchor = stage.querySelector(`[data-slot="${slot}"]`)
   if (!item || !anchor) return
   anchor.innerHTML = item.svg
+  // hair has a back layer (behind the body) as well as the front fringe
+  if (slot === 'hair') stage.querySelector('[data-slot="hairBack"]').innerHTML = item.back || ''
+  // held props follow the hand, which moves when the outfit's arms are raised
+  if (slot === 'outfit') stage.querySelector('[data-slot="prop"]').setAttribute('transform', propTransform(itemId))
   worn[slot] = itemId
   saveOutfit()
 }
@@ -227,9 +232,7 @@ function renderItems() {
     card.className = 'du-item'
     if (worn[activeSlot] === item.id) card.classList.add('worn')
     card.title = item.name
-    card.innerHTML = item.svg
-      ? `<svg viewBox="${item.thumbBox}" xmlns="http://www.w3.org/2000/svg">${item.svg}</svg>`
-      : '<span class="du-none">🚫</span>'
+    card.innerHTML = item.svg ? thumbSvg(activeSlot, item) : '<span class="du-none">🚫</span>'
     card.addEventListener('click', () => {
       sounds.stamp()
       equip(activeSlot, item.id)
@@ -241,7 +244,7 @@ function renderItems() {
 
 function renderSlotTabs() {
   slotTabs.innerHTML = ''
-  for (const slot of SLOTS_BY_DOLL[currentDoll]) {
+  for (const slot of SLOTS) {
     const b = document.createElement('button')
     b.className = 'du-slot-tab'
     b.innerHTML = `<span>${slot.icon}</span><span class="du-slot-label">${slot.label}</span>`
@@ -257,9 +260,9 @@ function renderSlotTabs() {
 }
 
 function buildDoll(savedWorn = null, savedFills = null, savedDrawing = '') {
-  stage.innerHTML = dollSvg(currentDoll)
+  stage.innerHTML = dollSvg()
   history.reset()
-  worn = { ...DEFAULTS_BY_DOLL[currentDoll] }
+  worn = { ...presetFor(currentDoll).worn }
   if (savedWorn) {
     // only restore item ids that still exist in the wardrobe
     for (const [slot, id] of Object.entries(savedWorn)) {
@@ -275,13 +278,13 @@ function buildDoll(savedWorn = null, savedFills = null, savedDrawing = '') {
     }
   }
   if (typeof savedDrawing === 'string' && savedDrawing) drawLayer().innerHTML = savedDrawing
-  if (!wardrobe()[activeSlot]) activeSlot = 'dress'
+  if (!wardrobe()[activeSlot]) activeSlot = 'outfit'
   renderSlotTabs()
   renderItems()
   saveOutfit()
 }
 
-const dollButtons = DOLLS.map((d) => {
+const dollButtons = PRESETS.map((d) => {
   const b = document.createElement('button')
   b.className = 'du-doll-btn'
   b.innerHTML = `${d.icon} ${d.label}`
@@ -358,9 +361,9 @@ app.replaceChildren(screen)
 
 // restore the last outfit (doll, clothes, and colors) if one was saved
 const saved = loadOutfit()
-if (saved && WARDROBES[saved.doll]) {
+if (saved && PRESETS.some((p) => p.id === saved.doll)) {
   currentDoll = saved.doll
-  dollButtons.forEach((b, i) => b.classList.toggle('active', DOLLS[i].id === currentDoll))
+  dollButtons.forEach((b, i) => b.classList.toggle('active', PRESETS[i].id === currentDoll))
   buildDoll(saved.worn, saved.fills, saved.drawing)
 } else {
   buildDoll()

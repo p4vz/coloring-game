@@ -1,40 +1,45 @@
-// "Dolls" coloring pages, composed from the Dress Up game's doll and wardrobe
-// so both games share one friendly art style. Each page is the doll in a
-// themed outfit, turned into a coloring page: every region starts white. The
-// shapes carry their own strokes and stay in paint order (so clothes cover
-// the body), which means the outline layer is just an empty top marker.
+// Character coloring pages ("Friends" and "Gymnastics"), built from the same
+// modular character parts as the Dress Up game so both games share one style.
+// Each page is a kid in an outfit (with an optional pet and background scene),
+// drawn as all-white tappable regions.
 
-import { dollSvg, WARDROBES, DEFAULTS_BY_DOLL } from '../dressup/wardrobe.js'
+import { character } from './characters.js'
+import { WARDROBE, CHAR_T } from '../dressup/wardrobe.js'
 
-const PAGES = [
-  { name: 'Princess', doll: 'girl', worn: { hair: 'long', dress: 'ballgown', hat: 'crown', necklace: 'pearls', shoes: 'sparkle-heels', scene: 'castle' } },
-  { name: 'Ballerina', doll: 'girl', worn: { hair: 'bun', dress: 'tutu', hat: 'tiara', shoes: 'ballet', scene: 'stage' } },
-  { name: 'Mermaid', doll: 'girl', worn: { hair: 'curls', dress: 'mermaid', hat: 'star-tiara', earrings: 'star-earrings', scene: 'beach' } },
-  { name: 'Snow Day', doll: 'girl', worn: { hair: 'pigtails', dress: 'winter-coat', hat: 'winter-hat', necklace: 'scarf', gloves: 'mittens', shoes: 'boots', scene: 'snow' } },
-  { name: 'Unicorn Friend', doll: 'girl', worn: { hair: 'long', dress: 'rainbow', hat: 'flowers', shoes: 'flats', pet: 'unicorn', scene: 'park' } },
-  { name: 'Kitty Picnic', doll: 'girl', worn: { hair: 'pigtails', dress: 'sundress', hat: 'sunhat', shoes: 'sandals', pet: 'kitty', scene: 'park' } },
-  { name: 'Party Time', doll: 'girl', worn: { hair: 'curls', dress: 'party', hat: 'party-hat', necklace: 'beads', shoes: 'sneakers', glasses: 'heart-glasses' } },
-  { name: 'Superhero', doll: 'boy', worn: { hair: 'spiky', dress: 'hero', shoes: 'boots', pet: 'puppy', scene: 'park' } },
-  { name: 'Rainy Day', doll: 'boy', worn: { hair: 'short', dress: 'raincoat', shoes: 'rainboots', hat: 'cap', pet: 'puppy' } },
-  { name: 'Dragon Prince', doll: 'boy', worn: { hair: 'curly-boy', dress: 'suit', hat: 'crown', shoes: 'boots', pet: 'dragon', scene: 'castle' } },
-]
+const PAGES = {
+  friends: [
+    { name: 'Princess', scene: 'castle', kid: { outfit: 'princess', hair: 'princess', face: 'happy', hat: 'crown', prop: 'wand' } },
+    { name: 'Party Time', scene: 'park', kid: { outfit: 'party', hair: 'bun', face: 'wink', hat: 'bow', prop: 'balloon' } },
+    { name: 'Explorer', scene: 'park', pet: 'puppy', kid: { outfit: 'explorer', hair: 'curly', face: 'surprised', hat: 'explorer', glasses: 'round' } },
+    { name: 'Best Friends', pet: 'kitty', kid: { outfit: 'casualGirl', hair: 'pigtails', face: 'happy', prop: 'flower' } },
+    { name: 'Ball Game', scene: 'park', pet: 'puppy', kid: { outfit: 'casualBoy', hair: 'short', face: 'laughing', hat: 'cap', prop: 'ball' } },
+    { name: 'Sleepy Time', pet: 'bunny', kid: { outfit: 'pajamas', hair: 'long', face: 'wink' } },
+    { name: 'Unicorn Princess', pet: 'unicorn', kid: { outfit: 'princess', hair: 'long', face: 'laughing', hat: 'tiara', prop: 'flower' } },
+    { name: 'Beach Day', scene: 'beach', kid: { outfit: 'party', hair: 'ponytail', face: 'happy', hat: 'flower', glasses: 'star' } },
+  ],
+  gymnastics: [
+    { name: 'Ribbon', scene: 'stage', kid: { outfit: 'gymnast', hair: 'ponytail', face: 'laughing', prop: 'ribbon' } },
+    { name: 'Hoop', scene: 'stage', kid: { outfit: 'gymnast', hair: 'bun', face: 'happy', prop: 'hoop' } },
+    { name: 'Ball', scene: 'stage', kid: { outfit: 'gymnast', hair: 'pigtails', face: 'happy', prop: 'ball' } },
+    { name: 'Gold Medal', kid: { outfit: 'gymnast', hair: 'bun', face: 'laughing', medal: true, prop: 'flower' } },
+    { name: 'Ta-da!', scene: 'stage', kid: { outfit: 'gymnast', hair: 'long', face: 'wink', hat: 'tiara' } },
+    { name: 'Star Gymnast', kid: { outfit: 'gymnast', hair: 'curly', face: 'surprised', prop: 'wand', medal: true } },
+  ],
+}
 
 const REGION_FILL = /class="region[^"]*" fill="[^"]*"/g
+const whiten = (svg) => svg.replace(REGION_FILL, 'class="region" fill="#ffffff"')
+const pick = (slot, id) => (id ? whiten(WARDROBE[slot].find((i) => i.id === id)?.svg || '') : '')
 
-function compose({ doll, worn }) {
-  const outfit = { ...DEFAULTS_BY_DOLL[doll], ...worn }
-  let body = dollSvg(doll)
-    .replace(/^\s*<svg[^>]*>/, '')
-    .replace(/<\/svg>\s*$/, '')
-  for (const [slot, id] of Object.entries(outfit)) {
-    const item = WARDROBES[doll][slot]?.find((i) => i.id === id)
-    body = body.replace(`<g data-slot="${slot}"></g>`, item ? item.svg : '')
-  }
-  const regions = body.replace(REGION_FILL, 'class="region" fill="#ffffff"')
+function compose({ scene, pet, kid }) {
   return `<svg viewBox="0 0 300 470" xmlns="http://www.w3.org/2000/svg">
-<g class="regions">${regions}</g>
+<g class="regions">${pick('scene', scene)}${pick('pet', pet)}<g transform="${CHAR_T}">${character(kid, 'page')}</g></g>
 <g class="outlines"></g>
 </svg>`
 }
 
-export const DOLL_PAGES = PAGES.map((p) => ({ stem: p.name.toLowerCase().replace(/\s+/g, '-'), name: p.name, svg: compose(p) }))
+const stem = (name) => name.toLowerCase().replace(/[^a-z]+/g, '-').replace(/-$/, '')
+
+export const CHARACTER_PAGES = Object.fromEntries(
+  Object.entries(PAGES).map(([cat, pages]) => [cat, pages.map((p) => ({ stem: stem(p.name), name: p.name, svg: compose(p) }))]),
+)

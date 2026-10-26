@@ -2,7 +2,7 @@
 // in as raw strings at build time, so adding art is just dropping a new .svg
 // into the right folder — no manual list to maintain.
 
-import { DOLL_PAGES } from './dolls.js'
+import { CHARACTER_PAGES } from './dolls.js'
 
 const modules = import.meta.glob('./{animals,vehicles,houses}/*.svg', {
   eager: true,
@@ -34,7 +34,8 @@ export const CATEGORIES = [
   { id: 'vehicles', label: 'Vehicles', icon: '🚂' },
   { id: 'houses', label: 'Houses', icon: '🏠' },
   { id: 'princess', label: 'Princess', icon: '👑', credit: DISNEY },
-  { id: 'dolls', label: 'Dolls', icon: '👸' },
+  { id: 'friends', label: 'Friends', icon: '🧒' },
+  { id: 'gymnastics', label: 'Gymnastics', icon: '🤸' },
 ]
 
 // Turn a file stem into a friendly display name: "fire-engine" -> "Fire Engine".
@@ -67,7 +68,9 @@ function add(path, extra) {
   TEMPLATES[category].push({ id: `${category}/${stem}`, name: titleCase(stem), category, ...extra })
 }
 for (const path in modules) add(path, { svg: pad(modules[path]) })
-for (const p of DOLL_PAGES) add(`./dolls/${p.stem}.svg`, { svg: pad(p.svg), name: p.name })
+for (const [cat, pages] of Object.entries(CHARACTER_PAGES)) {
+  for (const p of pages) add(`./${cat}/${p.stem}.svg`, { svg: pad(p.svg), name: p.name })
+}
 for (const path in lazyModules) {
   add(path, {
     load: lazyModules[path],
@@ -80,10 +83,10 @@ export function loadSvg(tpl) {
   return tpl.svg ? Promise.resolve(tpl.svg) : tpl.load()
 }
 
-// Stable alphabetical order within each category (dolls keep their hand-picked
-// order so the princess comes first).
+// Stable alphabetical order within each category (character pages keep their
+// hand-picked order).
 for (const cat in TEMPLATES) {
-  if (cat === 'dolls') continue
+  if (cat in CHARACTER_PAGES) continue
   TEMPLATES[cat].sort((a, b) => a.name.localeCompare(b.name))
 }
 

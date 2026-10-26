@@ -72,12 +72,14 @@ tap-fill regions, solid-black areas → colorable regions); the page footer and
 side "© Disney" strip are cropped from the coloring area, and the credit is
 shown in the app instead.
 
-## Dolls — original (from the Dress Up game)
+## Characters — original (Friends, Gymnastics, Dress Up)
 
-The `Dolls` coloring pages (Princess, Ballerina, Mermaid, Snow Day, Unicorn
-Friend, Kitty Picnic, Party Time, Superhero, Rainy Day, Dragon Prince) are
-composed at runtime by `src/art/dolls.js` from the Dress Up doll and wardrobe
-art — **original, CC0 1.0**.
+The kids in the **Friends** and **Gymnastics** coloring pages and in the
+**Dress Up** game are built from one modular, original character set in
+`src/art/characters.js` (heads, 4 expressions, 7 hairstyles, 7 outfits, hats,
+glasses, jewelry, and held props). The black-and-white asset sheet is
+`assets/character-sheet.svg`. Pets and backgrounds are original too
+(`src/dressup/wardrobe.js`). All **CC0 1.0**.
 
 ## Vehicles — Twemoji
 
@@ -115,4 +117,4 @@ dedicated to the public domain under
 | `src/art/farm/*`, `src/art/wild/*` | Monkey Pen coloring books | Free; credit + link to monkeypen.com |
 | `src/art/vehicles/*` | Twemoji (© Twitter) | CC‑BY 4.0 |
 | `src/art/princess/*` | Disney Princess printables (© Disney) | ⚠️ private family use only — do not redistribute |
-| `src/art/dolls.js`, `src/dressup/*`, `src/art/houses/*`, `src/art/stickers.js` | Original (this repo) | CC0 1.0 |
+| `src/art/characters.js`, `src/art/dolls.js`, `src/dressup/*`, `assets/character-sheet.svg`, `src/art/houses/*`, `src/art/stickers.js` | Original (this repo) | CC0 1.0 |

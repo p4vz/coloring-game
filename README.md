@@ -22,10 +22,10 @@ app (see below).
 - ↩️ **Undo** and 🧽 **Start over**
 - 💾 **Save** the finished picture as a PNG
 - 🔊 Gentle **sounds** with a mute toggle (remembered between visits)
-- 📚 **7 categories**: Animals, Farm, Wild, Vehicles, Houses, Princess, Dolls (~93 pictures)
+- 📚 **8 categories**: Animals, Farm, Wild, Vehicles, Houses, Princess, Friends, Gymnastics (~97 pictures)
 - 📖 **Farm, Wild & Princess** are full-page scenes from free printable coloring
   books; they load one page at a time when tapped, so the app stays light
-- 👸 **Dolls** are coloring pages built from the Dress Up game's doll and outfits
+- 🧒 **Friends & Gymnastics** pages use the same modular kids as Dress Up
 - 🚫 **No ads, no tracking, no accounts, no external links**
 
 ## Run it
@@ -72,21 +72,24 @@ src/
   dressup/           dress-up game: doll + wardrobe + UI
 ```
 
-### Dress Up
+### Characters & Dress Up
 
-Two dolls (girl 👧 and boy 👦) and every wardrobe item are original parametric
-SVGs (same kawaii style as the coloring pages). Girl slots: Dress, Hair, Shoes,
-Hats (incl. three tiaras + crown), Necklaces, Earrings, Glasses, Gloves, Pet,
-and Scene (backgrounds). Boy slots swap Dress for Clothes (tee, suit, overalls,
-hoodie, superhero, raincoat) and add Facial Hair (mustaches, goatee, beard).
-Every shape is a tappable `region`, so a kid can equip an outfit and recolor
-each part (bodice, skirt, sparkles, beads, pet fur, even skin and cheeks) with
-the shared palette. A 🎲 button deals a random surprise outfit. Pets include a
-dragon and a fish bowl; a seasonal set adds a winter coat, snow jacket,
-sundress, beanie, winter hat, cozy scarf, and a snowy-day scene. The outfit
-(doll, clothes, and colors) **auto-saves to the device** and is restored on the
-next visit, and saving a picture plays a little "Ta-da!" celebration before the
-PNG downloads.
+Both games share one set of modular kawaii kids (`src/art/characters.js`).
+Every part is drawn in the same frame — `(0, 0)` is the center of the neck
+base, and every neck and neckline is 40 units wide with the same collar curve —
+so any head snaps onto any outfit. Parts: a head base, 4 expressions, 7
+hairstyles (each with a back layer behind the body and a front fringe), 7
+outfits (tee & skirt, tee & shorts, explorer, gymnast leotard with raised arms,
+ball gown, party dress, pajamas), hats, glasses, necklaces, earrings, and held
+props (wand, ribbon, ball, hoop, flower, balloon). Every shape has a solid fill
+so stacked parts cover each other cleanly. `assets/character-sheet.svg` is the
+printable black-and-white sheet of all the parts.
+
+In **Dress Up**, Girl/Boy are just starting looks; every item works on any kid.
+Slots: Clothes, Hair, Face, Hats, Glasses, Necklace, Earrings, Hold, Pet, and
+Scene. Tap a color and then any part to recolor it, or use the brush and
+stickers to doodle on top. The look **auto-saves to the device**, and saving a
+picture plays a little "Ta-da!" before the PNG downloads.
 
 ### Where the art comes from
 
@@ -104,7 +107,7 @@ confirming rights to the animal artwork before publishing.**
 
 ### Adding more pictures
 
-Drop a new `.svg` into `src/art/animals|vehicles|houses|dolls/` following the
+Drop a new `.svg` into `src/art/animals|vehicles|houses/` following the
 `region` / `outline` structure in any existing file. It is picked up
 automatically (via `import.meta.glob`) — no list to edit.
 
