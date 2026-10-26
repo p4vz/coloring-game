@@ -1,12 +1,17 @@
 // Dress Up! — pick a doll (girl or boy), dress them from a slot-based
-// wardrobe, then recolor any part by choosing a palette color and tapping it.
-// Reuses the coloring game's palette, sounds, and PNG exporter.
+// wardrobe, then recolor any part by choosing a palette color and tapping it,
+// or doodle and stamp stickers on top. Reuses the coloring game's palette,
+// tools, sounds, and PNG exporter.
 
 import './style.css'
-import { state, loadPrefs, setMuted } from '../state.js'
+import { state, loadPrefs, setMuted, TOOLS } from '../state.js'
 import { unlockAudio, sounds } from '../audio.js'
 import { exportPng } from '../engine/exporter.js'
 import { createPalette } from '../ui/palette.js'
+import { createToolbar } from '../ui/toolbar.js'
+import { createHistory } from '../engine/history.js'
+import { createStroke } from '../engine/brush.js'
+import { makeSticker } from '../art/stickers.js'
 import { dollSvg, WARDROBES, DEFAULTS_BY_DOLL, SLOTS_BY_DOLL, DOLLS } from './wardrobe.js'
 
 const app = document.getElementById('app')
@@ -65,15 +70,93 @@ topbar.append(hubBtn, titleEl, right)
 const stage = document.createElement('div')
 stage.className = 'du-stage'
 
-// one delegated handler survives doll rebuilds: tap any region to recolor it
+const history = createHistory()
+const SVG_NS = 'http://www.w3.org/2000/svg'
+
+// Doodles and stickers live in their own top layer of the doll SVG, so they
+// show up in saved pictures. It ignores taps so recoloring still reaches the
+// clothes underneath.
+function drawLayer() {
+  const svg = stage.querySelector('svg')
+  let g = svg.querySelector('g.du-drawing')
+  if (!g) {
+    g = document.createElementNS(SVG_NS, 'g')
+    g.setAttribute('class', 'du-drawing')
+    g.setAttribute('pointer-events', 'none')
+    svg.appendChild(g)
+  }
+  return g
+}
+
+function toSvgPoint(e) {
+  const svg = stage.querySelector('svg')
+  const ctm = svg.getScreenCTM()
+  if (!ctm) return { x: 0, y: 0 }
+  const pt = svg.createSVGPoint()
+  pt.x = e.clientX
+  pt.y = e.clientY
+  return pt.matrixTransform(ctm.inverse())
+}
+
+let stroke = null
+
+// delegated handlers survive doll rebuilds
 stage.addEventListener('pointerdown', (e) => {
-  const region = e.target.closest && e.target.closest('.region')
-  if (!region) return
-  if (region.getAttribute('fill') === state.color) return
-  region.setAttribute('fill', state.color)
-  sounds.fill()
-  saveOutfit()
+  if (!stage.querySelector('svg') || (e.button != null && e.button > 0)) return
+  if (state.tool === TOOLS.FILL) {
+    const region = e.target.closest && e.target.closest('.region')
+    if (!region) return
+    const prev = region.getAttribute('fill')
+    if (prev === state.color) return
+    region.setAttribute('fill', state.color)
+    history.push(() => {
+      region.setAttribute('fill', prev)
+      saveOutfit()
+    })
+    sounds.fill()
+    saveOutfit()
+  } else if (state.tool === TOOLS.STICKER) {
+    const { x, y } = toSvgPoint(e)
+    const el = makeSticker(state.sticker, x, y, state.color)
+    drawLayer().appendChild(el)
+    history.push(() => {
+      el.remove()
+      saveOutfit()
+    })
+    sounds.stamp()
+    saveOutfit()
+  } else if (state.tool === TOOLS.BRUSH) {
+    stage.setPointerCapture?.(e.pointerId)
+    // brush sizes are tuned for 400-unit pictures; the doll is a bit smaller
+    stroke = createStroke(drawLayer(), { color: state.color, size: state.brushSize * 0.8 })
+    const { x, y } = toSvgPoint(e)
+    stroke.add(x, y)
+  }
 })
+stage.addEventListener(
+  'pointermove',
+  (e) => {
+    if (!stroke) return
+    e.preventDefault()
+    const { x, y } = toSvgPoint(e)
+    stroke.add(x, y)
+  },
+  { passive: false },
+)
+function endStroke(e) {
+  if (!stroke) return
+  stage.releasePointerCapture?.(e.pointerId)
+  const el = stroke.el
+  stroke = null
+  history.push(() => {
+    el.remove()
+    saveOutfit()
+  })
+  sounds.brush()
+  saveOutfit()
+}
+stage.addEventListener('pointerup', endStroke)
+stage.addEventListener('pointercancel', endStroke)
 
 // ---------- wardrobe panel ----------
 const panel = document.createElement('div')
@@ -98,17 +181,27 @@ const wardrobe = () => WARDROBES[currentDoll]
 const OUTFIT_KEY = 'elana.dressup.outfit.v1'
 let saveTimer = null
 
+function writeOutfit() {
+  clearTimeout(saveTimer)
+  saveTimer = null
+  try {
+    const fills = [...stage.querySelectorAll('.region')].map((r) => r.getAttribute('fill'))
+    const drawing = stage.querySelector('g.du-drawing')?.innerHTML || ''
+    localStorage.setItem(OUTFIT_KEY, JSON.stringify({ doll: currentDoll, worn, fills, drawing }))
+  } catch {
+    // storage unavailable (private mode) — the game just won't remember
+  }
+}
+
 function saveOutfit() {
   clearTimeout(saveTimer)
-  saveTimer = setTimeout(() => {
-    try {
-      const fills = [...stage.querySelectorAll('.region')].map((r) => r.getAttribute('fill'))
-      localStorage.setItem(OUTFIT_KEY, JSON.stringify({ doll: currentDoll, worn, fills }))
-    } catch {
-      // storage unavailable (private mode) — the game just won't remember
-    }
-  }, 250)
+  saveTimer = setTimeout(writeOutfit, 250)
 }
+
+// don't lose the last few changes when the page closes or the app is backgrounded
+const flushOutfit = () => saveTimer && writeOutfit()
+window.addEventListener('pagehide', flushOutfit)
+document.addEventListener('visibilitychange', () => document.hidden && flushOutfit())
 
 function loadOutfit() {
   try {
@@ -163,8 +256,9 @@ function renderSlotTabs() {
   }
 }
 
-function buildDoll(savedWorn = null, savedFills = null) {
+function buildDoll(savedWorn = null, savedFills = null, savedDrawing = '') {
   stage.innerHTML = dollSvg(currentDoll)
+  history.reset()
   worn = { ...DEFAULTS_BY_DOLL[currentDoll] }
   if (savedWorn) {
     // only restore item ids that still exist in the wardrobe
@@ -180,6 +274,7 @@ function buildDoll(savedWorn = null, savedFills = null) {
       regions.forEach((r, i) => savedFills[i] && r.setAttribute('fill', savedFills[i]))
     }
   }
+  if (typeof savedDrawing === 'string' && savedDrawing) drawLayer().innerHTML = savedDrawing
   if (!wardrobe()[activeSlot]) activeSlot = 'dress'
   renderSlotTabs()
   renderItems()
@@ -204,10 +299,20 @@ const dollButtons = DOLLS.map((d) => {
 
 panel.append(dollRow, slotTabs, itemGrid)
 
-// ---------- palette ----------
+// ---------- drawing tools + palette ----------
+const toolbar = createToolbar({ onUndo: () => history.undo() })
+history.onChange((size) => toolbar.setUndoEnabled(size > 0))
+const toolsWrap = document.createElement('div')
+toolsWrap.className = 'du-tools'
+toolsWrap.appendChild(toolbar.el)
+
 const paletteWrap = document.createElement('div')
 paletteWrap.className = 'du-palette'
 paletteWrap.appendChild(createPalette().el)
+
+const side = document.createElement('div')
+side.className = 'du-side'
+side.append(panel, toolsWrap, paletteWrap)
 
 // ---------- actions ----------
 surpriseBtn.addEventListener('click', () => {
@@ -216,6 +321,7 @@ surpriseBtn.addEventListener('click', () => {
     const items = wardrobe()[slot]
     equip(slot, items[Math.floor(Math.random() * items.length)].id)
   }
+  history.reset()
   renderItems()
 })
 
@@ -247,7 +353,7 @@ saveBtn.addEventListener('click', async () => {
   }
 })
 
-screen.append(topbar, stage, panel, paletteWrap)
+screen.append(topbar, stage, side)
 app.replaceChildren(screen)
 
 // restore the last outfit (doll, clothes, and colors) if one was saved
@@ -255,7 +361,7 @@ const saved = loadOutfit()
 if (saved && WARDROBES[saved.doll]) {
   currentDoll = saved.doll
   dollButtons.forEach((b, i) => b.classList.toggle('active', DOLLS[i].id === currentDoll))
-  buildDoll(saved.worn, saved.fills)
+  buildDoll(saved.worn, saved.fills, saved.drawing)
 } else {
   buildDoll()
 }

@@ -88,7 +88,8 @@ export function createToolbar({ onUndo, onClear }) {
   })
   clearBtn.addEventListener('click', () => onClear())
 
-  tools.append(fillBtn, brushBtn, stickerBtn, undoBtn, clearBtn)
+  tools.append(fillBtn, brushBtn, stickerBtn, undoBtn)
+  if (onClear) tools.append(clearBtn)
   wrap.append(options, tools)
 
   // initial state

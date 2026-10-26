@@ -34,7 +34,8 @@
         align-items: center;
         justify-content: center;
         gap: clamp(16px, 4vh, 40px);
-        padding: 24px;
+        padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right))
+          max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
       }
       h1 {
         margin: 0;
@@ -121,6 +122,13 @@
         opacity: 0.55;
         text-align: center;
       }
+      footer small {
+        display: block;
+        max-width: 520px;
+        margin: 8px auto 0;
+        font-size: 11px;
+        line-height: 1.4;
+      }
     </style>
   </head>
   <body>
@@ -153,7 +161,14 @@
       <a class="download" href="./elanas-games.apk" download="elanas-games.apk">
         📱 Get the Android app <small>(APK)</small>
       </a>
-      <footer>No ads · No tracking · Just play</footer>
+      <footer>
+        No ads · No tracking · Just play
+        <small>
+          A private family app. Disney Princess coloring pages © Disney, used for private
+          family play only; not affiliated with or endorsed by Disney. Farm &amp; Wild pages by
+          Monkey Pen. Vehicle art from Twemoji (CC-BY 4.0).
+        </small>
+      </footer>
     </div>
     <script>
       // Inside the installed app there's nothing to download.

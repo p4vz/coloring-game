@@ -6,7 +6,8 @@ landing page is a hub of games; each game lives on its own page:
 - **🎨 Coloring** (`/coloring/`) — pick a picture, fill between the lines with
   a tap, brush freehand, add stickers, save the result.
 - **👗 Dress Up** (`/dressup/`) — dress the doll (hair, dresses, shoes, hats,
-  all with sparkles), then recolor any part of any outfit with the palette.
+  all with sparkles), recolor any part of any outfit with the palette, and
+  doodle or stamp stickers on top with the brush.
 
 Built to be **simple and lightweight** so it runs smoothly on cheap / old
 tablets. Phase 1 is this web prototype; Phase 2 wraps the same code as a native
@@ -17,13 +18,14 @@ app (see below).
 - 🪣 **Fill** — tap any region to color inside the lines (instant, no bleeding)
 - 🖌️ **Brush** — freehand drawing in 3 sizes, under the black outlines
 - ✨ **Stickers** — stamp stars, hearts, flowers, and dots
-- 🎨 **14-color** bright palette (white doubles as an eraser for fills)
+- 🎨 **21-color** bright palette (white doubles as an eraser for fills)
 - ↩️ **Undo** and 🧽 **Start over**
 - 💾 **Save** the finished picture as a PNG
 - 🔊 Gentle **sounds** with a mute toggle (remembered between visits)
-- 📚 **7 categories**: Animals, Farm, Wild, Vehicles, Houses, Princess, Gymnastics (~77 pictures)
-- 📖 **Farm & Wild** are full-page scenes from Monkey Pen's free coloring books;
-  they load one page at a time when tapped, so the app stays light
+- 📚 **7 categories**: Animals, Farm, Wild, Vehicles, Houses, Princess, Dolls (~93 pictures)
+- 📖 **Farm, Wild & Princess** are full-page scenes from free printable coloring
+  books; they load one page at a time when tapped, so the app stays light
+- 👸 **Dolls** are coloring pages built from the Dress Up game's doll and outfits
 - 🚫 **No ads, no tracking, no accounts, no external links**
 
 ## Run it
@@ -90,9 +92,13 @@ PNG downloads.
 
 Animals are **vectorized from a kawaii woodland reference sheet** (potrace
 outlines + connected-component segmentation for the fill regions). Vehicles are
-derived from **Twemoji** (CC‑BY 4.0). Princesses, gymnasts, houses, and
-stickers are original CC0 line art (the princesses and gymnasts are generated
-by small parametric scripts — no branded characters). See [`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md) for credits, the
+derived from **Twemoji** (CC‑BY 4.0). Houses, dolls, and stickers are original
+CC0 line art.
+
+> ⚠️ **Disney Princess pages:** the Princess category uses Disney's free
+> printable coloring pages (© Disney), included **only for private use by the
+> owner's child**. Not affiliated with or endorsed by Disney. Don't publish,
+> sell, or share the app/APK with these pages in it; see ATTRIBUTIONS.md. See [`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md) for credits, the
 Twemoji attribution to keep in the shipped app, and an **important note about
 confirming rights to the animal artwork before publishing.**
 

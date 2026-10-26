@@ -29,6 +29,19 @@ body {
   user-select: none;
   touch-action: manipulation;
 }
+body {
+  /* keep clear of the Android status bar / camera cutout / gesture bar */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+}
+
+/* scroll areas still scroll by touch, but without stray scrollbar artifacts */
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
 
 #app {
   height: 100%;
@@ -225,7 +238,7 @@ body {
 
 /* ---------- Bottom controls ---------- */
 .controls {
-  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+  padding: 10px 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;

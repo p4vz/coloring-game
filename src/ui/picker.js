@@ -26,17 +26,17 @@ export function createPicker(onChoose) {
   const grid = document.createElement('div')
   grid.className = 'thumb-grid'
 
-  // Monkey Pen's license asks for credit + a link wherever their pages are used
+  // per-category credit / disclaimer line (Monkey Pen, Disney)
   const credit = document.createElement('div')
   credit.className = 'picker-credit'
-  credit.innerHTML =
-    'Coloring pages by <a href="https://monkeypen.com/" target="_blank" rel="noopener">Monkey Pen</a>'
 
   let current = CATEGORIES[0].id
 
   function renderGrid() {
     grid.innerHTML = ''
-    credit.hidden = !TEMPLATES[current].some((t) => t.thumb)
+    const cat = CATEGORIES.find((c) => c.id === current)
+    credit.innerHTML = cat.credit || ''
+    credit.hidden = !cat.credit
     for (const tpl of TEMPLATES[current]) {
       const card = document.createElement('button')
       card.className = 'thumb'
